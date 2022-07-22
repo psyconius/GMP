@@ -1,20 +1,12 @@
-﻿using System;
-using SideLoader;
+﻿using SideLoader;
 using UnityEngine;
 using System.IO;
-using SideLoader.Helpers;
-using SideLoader.Model;
-using SideLoader.Model.Status;
-using SideLoader.SLPacks;
-using SideLoader.SLPacks.Categories;
+using SLExtensions;
 
 namespace GMP.Effects
 {
     public class GMPEffects
     {
-        //public static GMPEffects Instance { get; private set; }
-
-
         public const string BANDAGE_REFERENCE_FAMILY_ID = "GMP_Bandages";
 
         public const int BETTER_BANDAGE_EFFECT_ID = -31098;
@@ -41,13 +33,6 @@ namespace GMP.Effects
         public const int RESTO_BANDAGE_EFFECT_ID = -31124;
         public const string RESTO_BANDAGE_EFFECT_NAME = "Resto_Bandage";
         public const int RESTO_BANDAGE_EFFECT_MAXHEALTH_ADD = 20;
-
-
-        private void Awake()
-        {
-            //Instance = this;
-
-        }
 
         public static void Init()
         {
@@ -80,7 +65,7 @@ namespace GMP.Effects
 
         public static void SetUpBetterBandage()
         {
-            SL_StatusEffect bandageEffectBB = new SL_StatusEffect
+            SL_StatusEffect bandageEffect = new SL_StatusEffect
             {
                 TargetStatusIdentifier = "Health Recovery Small",
                 NewStatusID = BETTER_BANDAGE_EFFECT_ID,
@@ -97,13 +82,14 @@ namespace GMP.Effects
                 ReferenceFamilyUID = BANDAGE_REFERENCE_FAMILY_ID,
                 EffectBehaviour = EditBehaviours.Override,
             };
-            bandageEffectBB.SLPackName = "gothiska-GMP";
-            bandageEffectBB.ApplyTemplate();
+            bandageEffect.SLPackName = Plugin.PACKID;
+            bandageEffect.ApplyTemplate();
+            bandageEffect.ApplyIcon();
         }
 
         public static void SetUpHQ()
         {
-            SL_StatusEffect bandageEffectHQ = new SL_StatusEffect
+            SL_StatusEffect bandageEffect = new SL_StatusEffect
             {
                 TargetStatusIdentifier = "Health Recovery 3",
                 NewStatusID = HQ_BANDAGE_EFFECT_ID,
@@ -120,13 +106,14 @@ namespace GMP.Effects
                 ReferenceFamilyUID = BANDAGE_REFERENCE_FAMILY_ID,
                 EffectBehaviour = EditBehaviours.Override,
             };
-            bandageEffectHQ.SLPackName = "gothiska-GMP";
-            bandageEffectHQ.ApplyTemplate();
+            bandageEffect.SLPackName = Plugin.PACKID;
+            bandageEffect.ApplyTemplate();
+            bandageEffect.ApplyIcon();
         }
 
         public static void SetUpResto()
         {
-            SL_StatusEffect bandageEffectR = new SL_StatusEffect
+            SL_StatusEffect bandageEffect = new SL_StatusEffect
             {
                 TargetStatusIdentifier = "Health Recovery 5",
                 NewStatusID = RESTO_BANDAGE_EFFECT_ID,
@@ -143,13 +130,14 @@ namespace GMP.Effects
                 ReferenceFamilyUID = BANDAGE_REFERENCE_FAMILY_ID,
                 EffectBehaviour = EditBehaviours.Override,
             };
-            bandageEffectR.SLPackName = "gothiska-GMP";
-            bandageEffectR.ApplyTemplate();
+            bandageEffect.SLPackName = Plugin.PACKID;
+            bandageEffect.ApplyTemplate();
+            bandageEffect.ApplyIcon();
         }
 
         public static void SetUpCurative()
         {
-            SL_StatusEffect bandageEffectCU = new SL_StatusEffect
+            SL_StatusEffect bandageEffect = new SL_StatusEffect
             {
                 TargetStatusIdentifier = "Possessed",
                 NewStatusID = CUR_BANDAGE_EFFECT_ID,
@@ -177,13 +165,14 @@ namespace GMP.Effects
                     }
                 }
             };
-            bandageEffectCU.SLPackName = "gothiska-GMP";
-            bandageEffectCU.ApplyTemplate();
+            bandageEffect.SLPackName = Plugin.PACKID;
+            bandageEffect.ApplyTemplate();
+            bandageEffect.ApplyIcon();
         }
 
         public static void SetUpHW()
         {
-            SL_StatusEffect bandageEffectHW = new SL_StatusEffect
+            SL_StatusEffect bandageEffect = new SL_StatusEffect
             {
                 TargetStatusIdentifier = "Warm",
                 NewStatusID = HW_BANDAGE_EFFECT_ID,
@@ -212,13 +201,14 @@ namespace GMP.Effects
                     }
                 }
             };
-            bandageEffectHW.SLPackName = "gothiska-GMP";
-            bandageEffectHW.ApplyTemplate();
+            bandageEffect.SLPackName = Plugin.PACKID;
+            bandageEffect.ApplyTemplate();
+            bandageEffect.ApplyIcon();
         }
 
         public static void SetUpCooling()
         {
-            SL_StatusEffect bandageEffectCO = new SL_StatusEffect
+            SL_StatusEffect bandageEffect = new SL_StatusEffect
             {
                 TargetStatusIdentifier = "Cool",
                 NewStatusID = COOL_BANDAGE_EFFECT_ID,
@@ -247,41 +237,11 @@ namespace GMP.Effects
                     }
                 }
             };
-            bandageEffectCO.SLPackName = "gothiska-GMP";
-            bandageEffectCO.ApplyTemplate();
-
-            /* Got super desperate and was trying to force the issue but wasn't working
-            SLPack pack = SL.GetSLPack("gothiska-GMP");
-            byte[] fileData;
-            string filePath = pack.FolderPath + @"\StatusEffects\Better_Bandage\icon.png";
-            Plugin.Log.LogMessage("Filepath: " + filePath); //filepath is PERFECT
-            fileData = File.ReadAllBytes(filePath);
-            Texture2D tex = new Texture2D(2,2);
-            tex.LoadImage(fileData);
-            Sprite sprite = CustomTextures.CreateSprite(tex, CustomTextures.SpriteBorderTypes.NONE);
-            StatusEffect beCO;
-            beCO = bandageEffectCO.CurrentPrefab.GetComponent<StatusEffect>(); //presumably throws exception here. Tried Parent and Children as well
-            beCO.OverrideIcon = sprite;
-            */
+            bandageEffect.SLPackName = Plugin.PACKID;
+            bandageEffect.ApplyTemplate();
+            bandageEffect.ApplyIcon();
         }
     }
-    /*  this was a hot mess
-    public class RestoreBurntHealth : SL_Effect, ICustomModel
-    {
-        public Type GameModel => typeof(RestoreBurntHealth);
-        public Type SLTemplateModel => typeof(RestoreBurntHealth);
-
-        public Character character;
-        public int amount;
-
-        public override void ApplyToComponent<T>(T component)
-        {
-            //character.Stats.BurntHealth.Equals(2f);
-            character.Stats.RestoreBurntHealth(amount, true);
-        }
-        public override void SerializeEffect<T>(T effect) { }
-    }
-    */
 }
 
 

@@ -8,6 +8,7 @@
     <string>_OCCLUSION_FROM_ALBEDO_ALPHA</string>
     <string>_SPECGLOSSMAP</string>
     <string>_WETNESS_NONE</string>
+    <string>_EMISSION</string>
   </Keywords>
   <Properties>
     <ShaderProperty xsi:type="ColorProp">
@@ -59,7 +60,7 @@
     <ShaderProperty xsi:type="ColorProp">
       <Name>_EmissionColor</Name>
       <Value>
-        <r>0</r>
+        <r>5</r>
         <g>0</g>
         <b>0</b>
         <a>1</a>
@@ -200,6 +201,11 @@
     </TextureConfig>
     <TextureConfig>
       <TextureName>_GenTex</TextureName>
+      <UseMipMap>true</UseMipMap>
+      <MipMapBias>0</MipMapBias>
+    </TextureConfig>
+    <TextureConfig>
+      <TextureName>_EmissionTex</TextureName>
       <UseMipMap>true</UseMipMap>
       <MipMapBias>0</MipMapBias>
     </TextureConfig>

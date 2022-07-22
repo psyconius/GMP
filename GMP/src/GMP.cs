@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-// RENAME 'OutwardModTemplate' TO SOMETHING ELSE
 namespace GMP
 {
     [BepInPlugin(GUID, NAME, VERSION)]
@@ -31,6 +30,8 @@ namespace GMP
 
         // If you need settings, define them like so:
         // public static ConfigEntry<bool> ExampleConfig;
+
+        public const string PACKID = "gothiska-GMP";
 
         public const int DEF_BANDAGE = 4400010;
 
@@ -110,7 +111,7 @@ namespace GMP
         internal void CreateBandages()
         {
             Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
-            SL_Item hqBandage = new SL_Item() //? DONE
+            SL_Item hqBandage = new SL_Item()
             {
                 Target_ItemID = DEF_BANDAGE,
                 New_ItemID = HQ_BANDAGE,
@@ -215,7 +216,7 @@ namespace GMP
             coolBandage.SubfolderName = "CoolingBandage";
             coolBandage.ApplyTemplate();
 
-            SL_Item restoBandage = new SL_Item() //? done
+            SL_Item restoBandage = new SL_Item() 
             {
                 Target_ItemID = DEF_BANDAGE,
                 New_ItemID = RESTO_BANDAGE,
