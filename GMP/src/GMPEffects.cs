@@ -7,23 +7,31 @@ namespace GMP.Effects
     {
         //public static GMPEffects Instance { get; private set; }
 
-        public const string BANDAGE_REFERENCE_FAMILY_ID = "GMP Bandages";
+        public const string BANDAGE_REFERENCE_FAMILY_ID = "GMP_Bandages";
+
+        public const int BETTER_BANDAGE_EFFECT_ID = -31098;
+        public const string BETTER_BANDAGE_EFFECT_NAME = "Better_Bandage";
 
         public const int HQ_BANDAGE_EFFECT_ID = -31120;
-        public const string HQ_BANDAGE_EFFECT_NAME = "HQ Bandage Bonus Regen";
+        public const string HQ_BANDAGE_EFFECT_NAME = "HQ_Bandage";
         public const int HQ_BANDAGE_EFFECT_MAXHEALTH_ADD = 10;
 
         public const int CUR_BANDAGE_EFFECT_ID = -31121;
-        public const string CUR_BANDAGE_EFFECT_NAME = "Curative Protection Add";
+        public const string CUR_BANDAGE_EFFECT_NAME = "Curative_Protection";
         public const int CUR_BANDAGE_EFFECT_RESIST_ADD = 10;
 
         public const int HW_BANDAGE_EFFECT_ID = -31122;
-        public const string HW_BANDAGE_EFFECT_NAME = "HW Protection Add";
+        public const string HW_BANDAGE_EFFECT_NAME = "HW_Protection";
         public const int HW_BANDAGE_EFFECT_RESIST_ADD = 20;
         public const int HW_BANDAGE_EFFECT_ENV_ADD = 8;
 
+        public const int COOL_BANDAGE_EFFECT_ID = -31123;
+        public const string COOL_BANDAGE_EFFECT_NAME = "Cooling_Protection";
+        public const int COOL_BANDAGE_EFFECT_RESIST_ADD = 20;
+        public const int COOL_BANDAGE_EFFECT_ENV_ADD = 8;
+
         public const int RESTO_BANDAGE_EFFECT_ID = -31124;
-        public const string RESTO_BANDAGE_EFFECT_NAME = "Resto Bandage Bonus Regen";
+        public const string RESTO_BANDAGE_EFFECT_NAME = "Resto_Bandage";
         public const int RESTO_BANDAGE_EFFECT_MAXHEALTH_ADD = 20;
 
 
@@ -52,11 +60,38 @@ namespace GMP.Effects
         }
 
         internal static void SetUpEffects()
-        { 
+        {
+            SetUpLowTier();
             SetUpHQ();
             SetUpResto();
             SetUpCurative();
             SetUpHW();
+            SetUpCooling();
+        }
+
+        public static void SetUpLowTier()
+        {
+            SL_StatusEffect bandageEffect = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Health Recovery Small",
+                NewStatusID = BETTER_BANDAGE_EFFECT_ID,
+                StatusIdentifier = BETTER_BANDAGE_EFFECT_NAME,
+                Name = "Better Banadage",
+                Description = "Recover a bonus 0.2 health per second.",
+                Purgeable = true,
+                ActionOnHit = StatusEffect.ActionsOnHit.None,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = 40,
+                RefreshRate = 1f,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                Priority = 1,
+                ReferenceFamilyUID = BANDAGE_REFERENCE_FAMILY_ID,
+                EffectBehaviour = EditBehaviours.Override,
+            };
+            bandageEffect.SLPackName = "GMP";
+            bandageEffect.ApplyTemplate();
         }
 
         public static void SetUpHQ()
@@ -80,8 +115,7 @@ namespace GMP.Effects
                 ReferenceFamilyUID = BANDAGE_REFERENCE_FAMILY_ID,
                 EffectBehaviour = EditBehaviours.Override,
             };
-            //bandageEffect.SLPackName = "GMP";
-            //bandageEffect.SubfolderName = "HQBandage";
+            bandageEffect.SLPackName = "GMP";
             bandageEffect.ApplyTemplate();
         }
 
@@ -106,8 +140,7 @@ namespace GMP.Effects
                 ReferenceFamilyUID = BANDAGE_REFERENCE_FAMILY_ID,
                 EffectBehaviour = EditBehaviours.Override,
             };
-            //bandageEffect.SLPackName = "GMP";
-            //bandageEffect.SubfolderName = "RestoBandage";
+            bandageEffect.SLPackName = "GMP";
             bandageEffect.ApplyTemplate();
         }
 
@@ -143,8 +176,7 @@ namespace GMP.Effects
                     }
                 }
             };
-            //bandageEffect.SLPackName = "GMP";
-            //bandageEffect.SubfolderName = "CurativeBandage";
+            bandageEffect.SLPackName = "GMP";
             bandageEffect.ApplyTemplate();
         }
 
@@ -175,17 +207,70 @@ namespace GMP.Effects
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_AffectStat { Stat_Tag = "ColdResistance", AffectQuantity = HW_BANDAGE_EFFECT_RESIST_ADD },
-                            new SL_AffectStat { Stat_Tag = "EnvHeatProtection", AffectQuantity = HW_BANDAGE_EFFECT_ENV_ADD }
+                            new SL_AffectStat { Stat_Tag = "FrostResistance", AffectQuantity = HW_BANDAGE_EFFECT_RESIST_ADD },
+                            new SL_AffectStat { Stat_Tag = "EnvColdProtection", AffectQuantity = HW_BANDAGE_EFFECT_ENV_ADD }
                         }
                     }
                 }
             };
-            //bandageEffect.SLPackName = "GMP";
-            //bandageEffect.SubfolderName = "HWBandage";
+            bandageEffect.SLPackName = "GMP";
+            bandageEffect.ApplyTemplate();
+        }
+
+        public static void SetUpCooling()
+        {
+            SL_StatusEffect bandageEffect = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Cool",
+                NewStatusID = COOL_BANDAGE_EFFECT_ID,
+                StatusIdentifier = COOL_BANDAGE_EFFECT_NAME,
+                Name = "Cooling Bandage",
+                Description = "Increased Heat Resistance and protection from hot weather.",
+                Purgeable = true,
+                ActionOnHit = StatusEffect.ActionsOnHit.None,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = 240,
+                RefreshRate = 1f,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                Priority = 1,
+                ReferenceFamilyUID = BANDAGE_REFERENCE_FAMILY_ID,
+                EffectBehaviour = EditBehaviours.Destroy,
+                Effects = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Normal",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AffectStat { Stat_Tag = "FireResistance", AffectQuantity = COOL_BANDAGE_EFFECT_RESIST_ADD },
+                            new SL_AffectStat { Stat_Tag = "EnvHeatProtection", AffectQuantity = COOL_BANDAGE_EFFECT_ENV_ADD }
+                        }
+                    }
+                }
+            };
+            bandageEffect.SLPackName = "GMP";
             bandageEffect.ApplyTemplate();
         }
     }
+    /*
+    public class RestoreBurntHealth : SL_Effect, ICustomModel
+    {
+        public Type GameModel => typeof(RestoreBurntHealth);
+        public Type SLTemplateModel => typeof(RestoreBurntHealth);
+
+        public Character character;
+        public int amount;
+
+        public override void ApplyToComponent<T>(T component)
+        {
+            //character.Stats.BurntHealth.Equals(2f);
+            character.Stats.RestoreBurntHealth(amount, true);
+        }
+        public override void SerializeEffect<T>(T effect) { }
+    }
+    */
 }
 
 

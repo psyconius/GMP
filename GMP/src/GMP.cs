@@ -58,7 +58,6 @@ namespace GMP
             // Harmony is for patching methods. If you're not patching anything, you can comment-out or delete this line.
             Harmony.CreateAndPatchAll(typeof(Harmonize));
 
-            SL.BeforePacksLoaded += SL_BeforePacksLoaded;
             SL.OnPacksLoaded += SL_OnPacksLoaded;
         }
 
@@ -69,7 +68,9 @@ namespace GMP
             {
                 Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
                 myChar.StatusEffectMngr.AddStatusEffect("Bleeding");
-                myChar.StatusEffectMngr.AddStatusEffect("Poisoned"); 
+                myChar.StatusEffectMngr.AddStatusEffect("Poisoned");
+                myChar.StatusEffectMngr.AddStatusEffect("Chill");
+                myChar.StatusEffectMngr.AddStatusEffect("Burn");
             }
 
             if (Input.GetKeyUp(KeyCode.KeypadPlus))
@@ -83,12 +84,17 @@ namespace GMP
                 Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
                 Log.LogMessage("Decay resist: " + myChar.Stats.m_totalDamageResistance[2]);
                 Log.LogMessage("Frost resist: " + myChar.Stats.m_totalDamageResistance[4]);
-                Log.LogMessage("Cold Weather Defense: " + myChar.Stats.m_coldProtection);
+                Log.LogMessage("Fire resist: " + myChar.Stats.m_totalDamageResistance[5]);
+                Log.LogMessage("Cold Weather Defense: " + myChar.Stats.m_coldProtection.m_currentValue);
+                Log.LogMessage("Hot Weather Defense: " + myChar.Stats.m_heatProtection.m_currentValue);
+                /*
+                Log.LogMessage("Burnt Health: " + myChar.Stats.BurntHealth);
+                Log.LogMessage("Burnt Health Ratio: " + myChar.Stats.BurntHealthRatio);
+                Log.LogMessage("Base Max Health: " + myChar.Stats.BaseMaxHealth);
+                Log.LogMessage("Max Health: " + myChar.Stats.MaxHealth);
+                Log.LogMessage("Base Max Health: " + myChar.Stats.StartingHealth);
+                */
             }
-        }
-        private void SL_BeforePacksLoaded()
-        {
-            
         }
 
         private void SL_OnPacksLoaded()
@@ -142,7 +148,8 @@ namespace GMP
                         {
                             new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Poison"},
                             new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Decay"},
-                            new SL_AddStatusEffect { StatusEffect = GMPEffects.CUR_BANDAGE_EFFECT_NAME, ChanceToContract = 100 }
+                            new SL_AddStatusEffect { StatusEffect = GMPEffects.CUR_BANDAGE_EFFECT_NAME, ChanceToContract = 100 },
+                            new SL_AddStatusEffect { StatusEffect = GMPEffects.BETTER_BANDAGE_EFFECT_NAME, ChanceToContract = 100 }
                         }
                     }
                 }
@@ -167,7 +174,8 @@ namespace GMP
                         Effects = new SL_Effect[]
                         {
                             new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Chill"},
-                            new SL_AddStatusEffect { StatusEffect = GMPEffects.HW_BANDAGE_EFFECT_NAME, ChanceToContract = 100 }
+                            new SL_AddStatusEffect { StatusEffect = GMPEffects.HW_BANDAGE_EFFECT_NAME, ChanceToContract = 100 },
+                            new SL_AddStatusEffect { StatusEffect = GMPEffects.BETTER_BANDAGE_EFFECT_NAME, ChanceToContract = 100 }
                         }
                     }
                 }
@@ -191,9 +199,10 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Burn"},
-                            new SL_AffectStat { Stat_Tag = "FireResistance", AffectQuantity = 20, Duration = 240 },
-                            new SL_AffectStat { Stat_Tag = "EnvHeatProtection", AffectQuantity = 8, Duration = 240 }
+                            new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Burning"},
+                            new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Scorch"},
+                            new SL_AddStatusEffect { StatusEffect = GMPEffects.COOL_BANDAGE_EFFECT_NAME, ChanceToContract = 100 },
+                            new SL_AddStatusEffect { StatusEffect = GMPEffects.BETTER_BANDAGE_EFFECT_NAME, ChanceToContract = 100 }
                         }
                     }
                 }
@@ -226,19 +235,6 @@ namespace GMP
             restoBandage.SLPackName = "GMP";
             restoBandage.SubfolderName = "RestorativeBandage";
             restoBandage.ApplyTemplate();
-        }
-
-        // This is an example of a Harmony patch.
-        // If you're not using this, you should delete it.
-        [HarmonyPatch(typeof(ResourcesPrefabManager), nameof(ResourcesPrefabManager.Load))]
-        public class ResourcesPrefabManager_Load
-        {
-            static void Postfix()
-            {
-                // This is a "Postfix" (runs after original) on ResourcesPrefabManager.Load
-                // For more documentation on Harmony, see the Harmony Wiki.
-                // https://harmony.pardeike.net/
-            }
         }
     }
 }
