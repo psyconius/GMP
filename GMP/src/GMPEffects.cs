@@ -17,28 +17,28 @@ namespace GMP.Effects
 
         public const string BANDAGE_REFERENCE_FAMILY_ID = "GMP_Bandages";
 
-        public const int BETTER_BANDAGE_EFFECT_ID = 31098;
+        public const int BETTER_BANDAGE_EFFECT_ID = -31098;
         public const string BETTER_BANDAGE_EFFECT_NAME = "Better_Bandage";
 
-        public const int HQ_BANDAGE_EFFECT_ID = 31120;
+        public const int HQ_BANDAGE_EFFECT_ID = -31120;
         public const string HQ_BANDAGE_EFFECT_NAME = "HQ_Bandage";
         public const int HQ_BANDAGE_EFFECT_MAXHEALTH_ADD = 10;
 
-        public const int CUR_BANDAGE_EFFECT_ID = 31121;
+        public const int CUR_BANDAGE_EFFECT_ID = -31121;
         public const string CUR_BANDAGE_EFFECT_NAME = "Curative_Protection";
         public const int CUR_BANDAGE_EFFECT_RESIST_ADD = 10;
 
-        public const int HW_BANDAGE_EFFECT_ID = 31122;
+        public const int HW_BANDAGE_EFFECT_ID = -31122;
         public const string HW_BANDAGE_EFFECT_NAME = "HW_Protection";
         public const int HW_BANDAGE_EFFECT_RESIST_ADD = 20;
         public const int HW_BANDAGE_EFFECT_ENV_ADD = 8;
 
-        public const int COOL_BANDAGE_EFFECT_ID = 31123;
+        public const int COOL_BANDAGE_EFFECT_ID = -31123;
         public const string COOL_BANDAGE_EFFECT_NAME = "Cooling_Protection";
         public const int COOL_BANDAGE_EFFECT_RESIST_ADD = 20;
         public const int COOL_BANDAGE_EFFECT_ENV_ADD = 8;
 
-        public const int RESTO_BANDAGE_EFFECT_ID = 31124;
+        public const int RESTO_BANDAGE_EFFECT_ID = -31124;
         public const string RESTO_BANDAGE_EFFECT_NAME = "Resto_Bandage";
         public const int RESTO_BANDAGE_EFFECT_MAXHEALTH_ADD = 20;
 

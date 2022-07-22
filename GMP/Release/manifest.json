@@ -1,0 +1,10 @@
+{
+    "name": "GMP",
+    "version_number": "0.1.0",
+    "website_url": "https://github.com/psyconius/",
+    "description": "GMP - Gothiska Mod Pack",
+    "dependencies": [
+		"sinai-dev-SideLoader-3.4.2",
+        "BepInEx-BepInExPack_Outward-5.4.8"
+    ]
+}
