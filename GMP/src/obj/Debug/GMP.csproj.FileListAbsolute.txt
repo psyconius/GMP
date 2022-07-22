@@ -1,5 +1,4 @@
 D:\Gothiska\Outward\GMP\Release\GMP.dll
 D:\Gothiska\Outward\GMP\src\obj\Debug\GMP.csprojAssemblyReference.cache
 D:\Gothiska\Outward\GMP\src\obj\Debug\GMP.csproj.CoreCompileInputs.cache
-D:\Gothiska\Outward\GMP\Release\plugins\GMP.dll
 D:\Gothiska\Outward\GMP\src\obj\Debug\GMP.dll

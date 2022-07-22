@@ -127,7 +127,7 @@ namespace GMP
                     }
                 }
             };
-            hqBandage.SLPackName = "GMP";
+            hqBandage.SLPackName = "gothiska-GMP";
             hqBandage.SubfolderName = "HQBandage";
             hqBandage.ApplyTemplate();
 
@@ -154,7 +154,7 @@ namespace GMP
                     }
                 }
             };
-            curBandage.SLPackName = "GMP";
+            curBandage.SLPackName = "gothiska-GMP";
             curBandage.SubfolderName = "CurativeBandage";
             curBandage.ApplyTemplate();
 
@@ -180,7 +180,7 @@ namespace GMP
                     }
                 }
             };
-            hwBandage.SLPackName = "GMP";
+            hwBandage.SLPackName = "gothiska-GMP";
             hwBandage.SubfolderName = "HWBandage";
             hwBandage.ApplyTemplate();
 
@@ -207,7 +207,7 @@ namespace GMP
                     }
                 }
             };
-            coolBandage.SLPackName = "GMP";
+            coolBandage.SLPackName = "gothiska-GMP";
             coolBandage.SubfolderName = "CoolingBandage";
             coolBandage.ApplyTemplate();
 
@@ -232,7 +232,7 @@ namespace GMP
                     }
                 }
             };
-            restoBandage.SLPackName = "GMP";
+            restoBandage.SLPackName = "gothiska-GMP";
             restoBandage.SubfolderName = "RestorativeBandage";
             restoBandage.ApplyTemplate();
         }
