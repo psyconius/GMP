@@ -248,10 +248,10 @@ namespace GMP.Effects
                 }
             };
             bandageEffectCO.SLPackName = "gothiska-GMP";
-            SLPack pack = SL.GetSLPack("gothiska-GMP");
             bandageEffectCO.ApplyTemplate();
 
             /* Got super desperate and was trying to force the issue but wasn't working
+            SLPack pack = SL.GetSLPack("gothiska-GMP");
             byte[] fileData;
             string filePath = pack.FolderPath + @"\StatusEffects\Better_Bandage\icon.png";
             Plugin.Log.LogMessage("Filepath: " + filePath); //filepath is PERFECT
