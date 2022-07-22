@@ -1,11 +1,19 @@
 ﻿using System;
 using SideLoader;
+using UnityEngine;
+using System.IO;
+using SideLoader.Helpers;
+using SideLoader.Model;
+using SideLoader.Model.Status;
+using SideLoader.SLPacks;
+using SideLoader.SLPacks.Categories;
 
 namespace GMP.Effects
 {
     public class GMPEffects
     {
         //public static GMPEffects Instance { get; private set; }
+
 
         public const string BANDAGE_REFERENCE_FAMILY_ID = "GMP_Bandages";
 
@@ -38,6 +46,7 @@ namespace GMP.Effects
         private void Awake()
         {
             //Instance = this;
+
         }
 
         public static void Init()
@@ -239,10 +248,24 @@ namespace GMP.Effects
                 }
             };
             bandageEffectCO.SLPackName = "gothiska-GMP";
+            SLPack pack = SL.GetSLPack("gothiska-GMP");
             bandageEffectCO.ApplyTemplate();
+
+            /* Got super desperate and was trying to force the issue but wasn't working
+            byte[] fileData;
+            string filePath = pack.FolderPath + @"\StatusEffects\Better_Bandage\icon.png";
+            Plugin.Log.LogMessage("Filepath: " + filePath); //filepath is PERFECT
+            fileData = File.ReadAllBytes(filePath);
+            Texture2D tex = new Texture2D(2,2);
+            tex.LoadImage(fileData);
+            Sprite sprite = CustomTextures.CreateSprite(tex, CustomTextures.SpriteBorderTypes.NONE);
+            StatusEffect beCO;
+            beCO = bandageEffectCO.CurrentPrefab.GetComponent<StatusEffect>(); //presumably throws exception here. Tried Parent and Children as well
+            beCO.OverrideIcon = sprite;
+            */
         }
     }
-    /*
+    /*  this was a hot mess
     public class RestoreBurntHealth : SL_Effect, ICustomModel
     {
         public Type GameModel => typeof(RestoreBurntHealth);

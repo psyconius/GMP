@@ -16,6 +16,8 @@ namespace GMP
     [BepInPlugin(GUID, NAME, VERSION)]
     public class Plugin : BaseUnityPlugin
     {
+        // To be able to fucking log from other file
+        public static Plugin Instance { get; private set; }
 
         // Choose a GUID for your project. Change "myname" and "mymod".
         public const string GUID = "gothiska.GMP";
@@ -25,7 +27,7 @@ namespace GMP
         public const string VERSION = "0.1.0";
 
         // For accessing your BepInEx Logger from outside of this class (eg Plugin.Log.LogMessage("");)
-        internal static ManualLogSource Log;
+        public static ManualLogSource Log;
 
         // If you need settings, define them like so:
         // public static ConfigEntry<bool> ExampleConfig;
@@ -49,6 +51,8 @@ namespace GMP
         // Awake is called when your plugin is created. Use this to set up your mod.
         internal void Awake()
         {
+            Instance = this;
+
             Log = this.Logger;
             Log.LogMessage($"Successfully loaded {NAME} {VERSION}!");
 
