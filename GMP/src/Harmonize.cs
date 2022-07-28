@@ -2,6 +2,7 @@
 using SideLoader;
 using HarmonyLib;
 using UnityEngine;
+using GMP.Network;
 
 namespace GMP
 {
@@ -43,21 +44,17 @@ namespace GMP
             }
             else if (__instance.ItemID == GMPItems.DICE || __instance.ItemID == GMPItems.FANCY_DICE)
             {
-                var dice = ResourcesPrefabManager.Instance.GetItemPrefab(GMPItems.DICE);
-                int rng = Random.Range(2, 12);
-                _targetChar.CharacterUI.ShowInfoNotification(_targetChar.Name + " has rolled a " + rng, dice);
+                int rng = UnityEngine.Random.Range(2, 12);
+                GMPNetwork.Instance.SendNotificationRequest(_targetChar.Name + " has rolled a " + rng);
 
-                CharacterUI[] characterUIs = CharacterManager.FindObjectsOfType<CharacterUI>();
-                Plugin.Log.LogMessage("UIs: " + characterUIs.Length);
                 //TODO Fix multiplayer dice
                 //foreach (PlayerSystem player in Global.Lobby.PlayersInLobby)
                 //{
                 //    Character otherchar = player.ControlledCharacter;
                 //    Plugin.Log.LogMessage("Connected Player " + otherchar.Name);
                 //    Plugin.Log.LogMessage("Connected Player is world host: " + otherchar.IsWorldHost);
-                //    Plugin.Log.LogMessage("Connected Player open inventory? " + otherchar.CharacterUI.IsInventoryPanelDisplayed);
-                //    CharacterUI cui = otherchar.GetComponent<CharacterUI>();
-                //    cui.ShowInfoNotification(_targetChar.Name + " has rolled a " + rng, dice);
+
+                //    otherchar.CharacterUI.BroadcastMessage("ShowInfoNotification", new object[] { $"{_targetChar.Name} has rolled a {rng}", });
                 //}
             }
         }

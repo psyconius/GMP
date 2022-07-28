@@ -72,7 +72,7 @@ namespace GMP
                         TransformName = "ExtraEffects",
                         EffectConditions = new SL_EffectCondition[]
                         {
-                            new SL_ProbabilityCondition { ChancePercent = 100 }//VolatilePotionEffects.VP_DEATHCHANCE }
+                            new SL_ProbabilityCondition { ChancePercent = 100 }//?VolatilePotionEffects.VP_DEATHCHANCE } 
                         },
                         Effects = new SL_Effect[]
                         {

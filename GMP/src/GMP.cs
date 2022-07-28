@@ -4,6 +4,7 @@ using BepInEx.Logging;
 using HarmonyLib;
 using SideLoader;
 using UnityEngine;
+using GMP.Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,8 @@ namespace GMP
 
         public const string PACKID = "gothiska-GMP";
 
+        GameObject rpcgo;
+        GMPNetwork Rpcs;
 
 
         // Awake is called when your plugin is created. Use this to set up your mod.
@@ -41,6 +44,11 @@ namespace GMP
 
             Log = this.Logger;
             Log.LogMessage($"Successfully loaded {NAME} {VERSION}!");
+
+            // Add extra network functions to a gameObject
+            rpcgo = new GameObject(nameof(GMPNetwork));
+            Rpcs = rpcgo.AddComponent<GMPNetwork>();
+            DontDestroyOnLoad(rpcgo);
 
             // Any config settings you define should be set up like this:
             // ExampleConfig = Config.Bind("ExampleCategory", "ExampleSetting", false, "This is an example setting.");
@@ -76,13 +84,19 @@ namespace GMP
             if (Input.GetKeyUp(KeyCode.KeypadPeriod))
             {
                 Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
-                //? FOR TESTING REMAKING DICE
-                Light light = myChar.gameObject.AddComponent<Light>();
-                light.type = LightType.Point;
-                light.name = "testlight";
-                light.intensity = 8;
-                light.range = 100;
-                light.color = Color.yellow;
+                int rng = UnityEngine.Random.Range(1, 12);
+                GMPNetwork.Instance.SendNotificationRequest(myChar.Name + " has rolled a " + rng);
+            };
+                
+                //test.RPC("SendNotificationRequest", $"{myChar} has rolled a {rng}"})
+                
+
+                //Light light = myChar.gameObject.AddComponent<Light>();
+                //light.type = LightType.Point;
+                //light.name = "testlight";
+                //light.intensity = 8;
+                //light.range = 100;
+                //light.color = Color.yellow;
                 //Log.LogMessage("Physical Resist" + myChar.Stats.m_totalDamageResistance[0]);
                 //Log.LogMessage("Ethereal Resist" + myChar.Stats.m_totalDamageResistance[1]);
                 //Log.LogMessage("Decay resist: " + myChar.Stats.m_totalDamageResistance[2]);
@@ -110,7 +124,7 @@ namespace GMP
                 Log.LogMessage("Max Health: " + myChar.Stats.MaxHealth);
                 Log.LogMessage("Base Max Health: " + myChar.Stats.StartingHealth);
                 */
-            }
+            
         }
 
         private void SL_OnPacksLoaded()
