@@ -3,7 +3,6 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using SideLoader;
-using GMP.Effects;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
@@ -23,7 +22,7 @@ namespace GMP
         // Choose a NAME for your project, generally the same as your Assembly Name.
         public const string NAME = "GMP - Gothiska Mod Pack";
         // Increment the VERSION when you release a new version of your mod.
-        public const string VERSION = "0.1.0";
+        public const string VERSION = "0.3.1";
 
         // For accessing your BepInEx Logger from outside of this class (eg Plugin.Log.LogMessage("");)
         public static ManualLogSource Log;
@@ -33,21 +32,7 @@ namespace GMP
 
         public const string PACKID = "gothiska-GMP";
 
-        public const int DEF_BANDAGE = 4400010;
 
-        public const int HQ_BANDAGE = -31100;
-        public const int CUR_BANDAGE = -31101;
-        public const int HW_BANDAGE = -31102;
-        public const int COOL_BANDAGE = -31103;
-        public const int RESTO_BANDAGE = -31104;
-
-        const float BANDAGE_WEIGHT = 0.4f;
-
-        const int HQ_BANDAGE_VAL = 45;
-        const int CUR_BANDAGE_VAL = 21;
-        const int HW_BANDAGE_VAL = 21;
-        const int COOL_BANDAGE_VAL = 21;
-        const int RESTO_BANDAGE_VAL = 90;
 
         // Awake is called when your plugin is created. Use this to set up your mod.
         internal void Awake()
@@ -72,26 +57,52 @@ namespace GMP
             if (Input.GetKeyUp(KeyCode.KeypadMinus))
             {
                 Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
-                myChar.StatusEffectMngr.AddStatusEffect("Bleeding");
-                myChar.StatusEffectMngr.AddStatusEffect("Poisoned");
-                myChar.StatusEffectMngr.AddStatusEffect("Chill");
-                myChar.StatusEffectMngr.AddStatusEffect("Burn");
+                //myChar.Stats.m_manaUseModifiers.AddRawStack(new StatStack("test", 0.2f));
+                //myChar.Stats.m_manaUseModifiers.CurrentValue.Equals(myChar.Stats.m_manaUseModifiers.CurrentValue + 0.2f);
+                myChar.StatusEffectMngr.AddStatusEffect("Gaberry Wine");
             }
 
             if (Input.GetKeyUp(KeyCode.KeypadPlus))
             {
                 Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
                 myChar.StatusEffectMngr.RemoveShortStatuses();
+
+                if (myChar.GetComponent<Light>().name == "testlight")
+                {
+                    Destroy(myChar.GetComponent<Light>());
+                }
             }
 
             if (Input.GetKeyUp(KeyCode.KeypadPeriod))
             {
                 Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
-                Log.LogMessage("Decay resist: " + myChar.Stats.m_totalDamageResistance[2]);
-                Log.LogMessage("Frost resist: " + myChar.Stats.m_totalDamageResistance[4]);
-                Log.LogMessage("Fire resist: " + myChar.Stats.m_totalDamageResistance[5]);
-                Log.LogMessage("Cold Weather Defense: " + myChar.Stats.m_coldProtection.m_currentValue);
-                Log.LogMessage("Hot Weather Defense: " + myChar.Stats.m_heatProtection.m_currentValue);
+                //? FOR TESTING REMAKING DICE
+                Light light = myChar.gameObject.AddComponent<Light>();
+                light.type = LightType.Point;
+                light.name = "testlight";
+                light.intensity = 8;
+                light.range = 100;
+                light.color = Color.yellow;
+                //Log.LogMessage("Physical Resist" + myChar.Stats.m_totalDamageResistance[0]);
+                //Log.LogMessage("Ethereal Resist" + myChar.Stats.m_totalDamageResistance[1]);
+                //Log.LogMessage("Decay resist: " + myChar.Stats.m_totalDamageResistance[2]);
+                //Log.LogMessage("Electric Resist" + myChar.Stats.m_totalDamageResistance[3]);
+                //Log.LogMessage("Frost resist: " + myChar.Stats.m_totalDamageResistance[4]);
+                //Log.LogMessage("Fire resist: " + myChar.Stats.m_totalDamageResistance[5]);
+                //Log.LogMessage("Cold Weather Defense: " + myChar.Stats.m_coldProtection.m_currentValue);
+                //Log.LogMessage("Hot Weather Defense: " + myChar.Stats.m_heatProtection.m_currentValue);
+                //Log.LogMessage("Physical Damage: " + myChar.Stats.m_damageTypesModifier[0].CurrentValue);
+                //Log.LogMessage("Ethereal Damage: " + myChar.Stats.m_damageTypesModifier[1].CurrentValue);
+                //Log.LogMessage("Decay Damage: " + myChar.Stats.m_damageTypesModifier[2].CurrentValue);
+                //Log.LogMessage("Electric Damage: " + myChar.Stats.m_damageTypesModifier[3].CurrentValue);
+                //Log.LogMessage("Frost Damage: " + myChar.Stats.m_damageTypesModifier[4].CurrentValue);
+                //Log.LogMessage("Fire Damage: " + myChar.Stats.m_damageTypesModifier[5].CurrentValue);
+                //Log.LogMessage("Mana Use 'current value': " + myChar.Stats.m_manaUseModifiers.CurrentValue);
+                //Log.LogMessage("Mana Use 'm current value': " + myChar.Stats.m_manaUseModifiers.m_currentValue);
+                //Log.LogMessage("Mana Use mana aug raw: " + myChar.Stats.m_manaAugmentation.RawValue);
+                //Log.LogMessage("Mana Use mana aug perm: " + myChar.Stats.m_manaAugmentation.m_permanent);
+                //Log.LogMessage(".......");
+
                 /*
                 Log.LogMessage("Burnt Health: " + myChar.Stats.BurntHealth);
                 Log.LogMessage("Burnt Health Ratio: " + myChar.Stats.BurntHealthRatio);
@@ -104,142 +115,21 @@ namespace GMP
 
         private void SL_OnPacksLoaded()
         {
+            // Misc
             GMPEffects.Init();
-            CreateBandages();
+            GMPItems.CreateMisc();
+
+            // Bandages
+            GMPItems.CreateBandages();
+            BandageRecipes.Init();
+
+            // Scrolls
+            Scrolls.Init();
+
+            // Volatile Potions
+            VolatilePotions.Init();
         }
 
-        internal void CreateBandages()
-        {
-            Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
-            SL_Item hqBandage = new SL_Item()
-            {
-                Target_ItemID = DEF_BANDAGE,
-                New_ItemID = HQ_BANDAGE,
-                Name = "High Quality Bandage",
-                Description = "A bandage made of higher quality material and soaked in a healing solution.",
-                StatsHolder = new SL_ItemStats { BaseValue = HQ_BANDAGE_VAL, RawWeight = BANDAGE_WEIGHT },
-                EffectBehaviour = EditBehaviours.Override,
-                EffectTransforms = new SL_EffectTransform[]
-                {
-                    new SL_EffectTransform
-                    {
-                        TransformName = "Normal",
-                        Effects = new SL_Effect[]
-                        {
-                            new SL_AddStatusEffect { StatusEffect = GMPEffects.HQ_BANDAGE_EFFECT_NAME, ChanceToContract = 100 },
-                            new SL_AffectBurntHealth { AffectQuantity = GMPEffects.HQ_BANDAGE_EFFECT_MAXHEALTH_ADD, IsModifier = false }
-                        }
-                    }
-                }
-            };
-            hqBandage.SLPackName = "gothiska-GMP";
-            hqBandage.SubfolderName = "HQBandage";
-            hqBandage.ApplyTemplate();
-
-            SL_Item curBandage = new SL_Item()
-            {
-                Target_ItemID = DEF_BANDAGE,
-                New_ItemID = CUR_BANDAGE,
-                Name = "Curative Bandage",
-                Description = "A bandage made of higher quality material and soaked in a curative solution.",
-                StatsHolder = new SL_ItemStats { BaseValue = CUR_BANDAGE_VAL, RawWeight = BANDAGE_WEIGHT },
-                EffectBehaviour = EditBehaviours.Override,
-                EffectTransforms = new SL_EffectTransform[]
-                {
-                    new SL_EffectTransform
-                    {
-                        TransformName = "Normal",
-                        Effects = new SL_Effect[]
-                        {
-                            new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Poison"},
-                            new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Decay"},
-                            new SL_AddStatusEffect { StatusEffect = GMPEffects.CUR_BANDAGE_EFFECT_NAME, ChanceToContract = 100 },
-                            new SL_AddStatusEffect { StatusEffect = GMPEffects.BETTER_BANDAGE_EFFECT_NAME, ChanceToContract = 100 }
-                        }
-                    }
-                }
-            };
-            curBandage.SLPackName = "gothiska-GMP";
-            curBandage.SubfolderName = "CurativeBandage";
-            curBandage.ApplyTemplate();
-
-            SL_Item hwBandage = new SL_Item()
-            {
-                Target_ItemID = DEF_BANDAGE,
-                New_ItemID = HW_BANDAGE,
-                Name = "Heavy Wool Bandage",
-                Description = "A bandage made of higher quality material and fortified with thick hide soaked in a warming solution.",
-                StatsHolder = new SL_ItemStats { BaseValue = HW_BANDAGE_VAL, RawWeight = BANDAGE_WEIGHT },
-                EffectBehaviour = EditBehaviours.Override,
-                EffectTransforms = new SL_EffectTransform[]
-                {
-                    new SL_EffectTransform
-                    {
-                        TransformName = "Normal",
-                        Effects = new SL_Effect[]
-                        {
-                            new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Chill"},
-                            new SL_AddStatusEffect { StatusEffect = GMPEffects.HW_BANDAGE_EFFECT_NAME, ChanceToContract = 100 },
-                            new SL_AddStatusEffect { StatusEffect = GMPEffects.BETTER_BANDAGE_EFFECT_NAME, ChanceToContract = 100 }
-                        }
-                    }
-                }
-            };
-            hwBandage.SLPackName = "gothiska-GMP";
-            hwBandage.SubfolderName = "HWBandage";
-            hwBandage.ApplyTemplate();
-
-            SL_Item coolBandage = new SL_Item()
-            {
-                Target_ItemID = DEF_BANDAGE,
-                New_ItemID = COOL_BANDAGE,
-                Name = "Cooling Bandage",
-                Description = "A bandage made of higher quality material and fortified with a breathable mesh soaked in a cooling solution.",
-                StatsHolder = new SL_ItemStats { BaseValue = COOL_BANDAGE_VAL, RawWeight = BANDAGE_WEIGHT },
-                EffectBehaviour = EditBehaviours.Override,
-                EffectTransforms = new SL_EffectTransform[]
-                {
-                    new SL_EffectTransform
-                    {
-                        TransformName = "Normal",
-                        Effects = new SL_Effect[]
-                        {
-                            new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Burning"},
-                            new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Scorch"},
-                            new SL_AddStatusEffect { StatusEffect = GMPEffects.COOL_BANDAGE_EFFECT_NAME, ChanceToContract = 100 },
-                            new SL_AddStatusEffect { StatusEffect = GMPEffects.BETTER_BANDAGE_EFFECT_NAME, ChanceToContract = 100 }
-                        }
-                    }
-                }
-            };
-            coolBandage.SLPackName = "gothiska-GMP";
-            coolBandage.SubfolderName = "CoolingBandage";
-            coolBandage.ApplyTemplate();
-
-            SL_Item restoBandage = new SL_Item() 
-            {
-                Target_ItemID = DEF_BANDAGE,
-                New_ItemID = RESTO_BANDAGE,
-                Name = "Restorative Bandage",
-                Description = "A bandage made of higher quality material and soaked in an extremely potent restorative solution.",
-                StatsHolder = new SL_ItemStats { BaseValue = RESTO_BANDAGE_VAL, RawWeight = BANDAGE_WEIGHT },
-                EffectBehaviour = EditBehaviours.Override,
-                EffectTransforms = new SL_EffectTransform[]
-                {
-                    new SL_EffectTransform
-                    {
-                        TransformName = "Normal",
-                        Effects = new SL_Effect[]
-                        {
-                            new SL_AddStatusEffect { StatusEffect = GMPEffects.RESTO_BANDAGE_EFFECT_NAME, ChanceToContract = 100 },
-                            new SL_AffectBurntHealth { AffectQuantity = GMPEffects.RESTO_BANDAGE_EFFECT_MAXHEALTH_ADD, IsModifier = false }
-                        }
-                    }
-                }
-            };
-            restoBandage.SLPackName = "gothiska-GMP";
-            restoBandage.SubfolderName = "RestorativeBandage";
-            restoBandage.ApplyTemplate();
-        }
+        
     }
 }

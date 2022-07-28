@@ -2,8 +2,9 @@
 using UnityEngine;
 using System.IO;
 using SLExtensions;
+using System.Collections.Generic;
 
-namespace GMP.Effects
+namespace GMP
 {
     public class GMPEffects
     {
@@ -12,27 +13,32 @@ namespace GMP.Effects
         public const int BETTER_BANDAGE_EFFECT_ID = -31098;
         public const string BETTER_BANDAGE_EFFECT_NAME = "Better_Bandage";
 
-        public const int HQ_BANDAGE_EFFECT_ID = -31120;
+        public const int HQ_BANDAGE_EFFECT_ID = -31800;
         public const string HQ_BANDAGE_EFFECT_NAME = "HQ_Bandage";
-        public const int HQ_BANDAGE_EFFECT_MAXHEALTH_ADD = 10;
+        public const float HQ_BANDAGE_EFFECT_MAXHEALTH_ADD = 10f;
 
-        public const int CUR_BANDAGE_EFFECT_ID = -31121;
+        public const int CUR_BANDAGE_EFFECT_ID = -31801;
         public const string CUR_BANDAGE_EFFECT_NAME = "Curative_Protection";
-        public const int CUR_BANDAGE_EFFECT_RESIST_ADD = 10;
+        public const float CUR_BANDAGE_EFFECT_RESIST_ADD = 10f;
 
-        public const int HW_BANDAGE_EFFECT_ID = -31122;
+        public const int HW_BANDAGE_EFFECT_ID = -31802;
         public const string HW_BANDAGE_EFFECT_NAME = "HW_Protection";
-        public const int HW_BANDAGE_EFFECT_RESIST_ADD = 20;
-        public const int HW_BANDAGE_EFFECT_ENV_ADD = 8;
+        public const float HW_BANDAGE_EFFECT_RESIST_ADD = 20f;
+        public const float HW_BANDAGE_EFFECT_ENV_ADD = 8f;
 
-        public const int COOL_BANDAGE_EFFECT_ID = -31123;
+        public const int COOL_BANDAGE_EFFECT_ID = -31803;
         public const string COOL_BANDAGE_EFFECT_NAME = "Cooling_Protection";
-        public const int COOL_BANDAGE_EFFECT_RESIST_ADD = 20;
-        public const int COOL_BANDAGE_EFFECT_ENV_ADD = 8;
+        public const float COOL_BANDAGE_EFFECT_RESIST_ADD = 20f;
+        public const float COOL_BANDAGE_EFFECT_ENV_ADD = 8f;
 
-        public const int RESTO_BANDAGE_EFFECT_ID = -31124;
+        public const int RESTO_BANDAGE_EFFECT_ID = -31804;
         public const string RESTO_BANDAGE_EFFECT_NAME = "Resto_Bandage";
-        public const int RESTO_BANDAGE_EFFECT_MAXHEALTH_ADD = 20;
+        public const float RESTO_BANDAGE_EFFECT_MAXHEALTH_ADD = 20f;
+
+        public const int LUCKY_DICE_EFFECT_ID = -31830;
+        public const string LUCKY_DICE_EFFECT_NAME = "Lucky_Dice";
+        public const float LUCKY_DICE_EFFECT_DURATION = 600f;
+        public const string LUCKY_DICE_REFERENCE_FAMILY_ID = "GMP_LuckyDice";
 
         public static void Init()
         {
@@ -43,14 +49,23 @@ namespace GMP.Effects
         public static void SetUpFamily()
         {
             // Set up effect family
-            SL_StatusEffectFamily family = new SL_StatusEffectFamily
+            SL_StatusEffectFamily bandageFamily = new SL_StatusEffectFamily
             {
                 UID = BANDAGE_REFERENCE_FAMILY_ID,
                 StackBehaviour = StatusEffectFamily.StackBehaviors.IndependantUnique,
                 MaxStackCount = -1,
                 LengthType = StatusEffectFamily.LengthTypes.Short
             };
-            family.ApplyTemplate();
+            bandageFamily.ApplyTemplate();
+
+            SL_StatusEffectFamily luckyDiceFamily = new SL_StatusEffectFamily
+            {
+                UID = LUCKY_DICE_REFERENCE_FAMILY_ID,
+                StackBehaviour = StatusEffectFamily.StackBehaviors.StackAll,
+                MaxStackCount = 2,
+                LengthType = StatusEffectFamily.LengthTypes.Short
+            };
+            luckyDiceFamily.ApplyTemplate();
         }
 
         internal static void SetUpEffects()
@@ -61,6 +76,7 @@ namespace GMP.Effects
             SetUpCurative();
             SetUpHW();
             SetUpCooling();
+            SetUpLuckyDice();
         }
 
         public static void SetUpBetterBandage()
@@ -75,7 +91,7 @@ namespace GMP.Effects
                 Purgeable = true,
                 DisplayedInHUD = true,
                 IsMalusEffect = false,
-                Lifespan = 40,
+                Lifespan = 40f,
                 RefreshRate = 1f,
                 AmplifiedStatusIdentifier = string.Empty,
                 FamilyMode = StatusEffect.FamilyModes.Reference,
@@ -99,7 +115,7 @@ namespace GMP.Effects
                 Purgeable = true,
                 DisplayedInHUD = true,
                 IsMalusEffect = false,
-                Lifespan = 40,
+                Lifespan = 40f,
                 RefreshRate = 1f,
                 AmplifiedStatusIdentifier = string.Empty,
                 FamilyMode = StatusEffect.FamilyModes.Reference,
@@ -123,7 +139,7 @@ namespace GMP.Effects
                 Purgeable = true,
                 DisplayedInHUD = true,
                 IsMalusEffect = false,
-                Lifespan = 40,
+                Lifespan = 40f,
                 RefreshRate = 1f,
                 AmplifiedStatusIdentifier = string.Empty,
                 FamilyMode = StatusEffect.FamilyModes.Reference,
@@ -147,7 +163,7 @@ namespace GMP.Effects
                 Purgeable = true,
                 DisplayedInHUD = true,
                 IsMalusEffect = false,
-                Lifespan = 240,
+                Lifespan = 240f,
                 RefreshRate = 1f,
                 AmplifiedStatusIdentifier = string.Empty,
                 FamilyMode = StatusEffect.FamilyModes.Reference,
@@ -182,7 +198,7 @@ namespace GMP.Effects
                 Purgeable = true,
                 DisplayedInHUD = true,
                 IsMalusEffect = false,
-                Lifespan = 240,
+                Lifespan = 240f,
                 RefreshRate = 1f,
                 AmplifiedStatusIdentifier = string.Empty,
                 FamilyMode = StatusEffect.FamilyModes.Reference,
@@ -218,7 +234,7 @@ namespace GMP.Effects
                 Purgeable = true,
                 DisplayedInHUD = true,
                 IsMalusEffect = false,
-                Lifespan = 240,
+                Lifespan = 240f,
                 RefreshRate = 1f,
                 AmplifiedStatusIdentifier = string.Empty,
                 FamilyMode = StatusEffect.FamilyModes.Reference,
@@ -241,7 +257,32 @@ namespace GMP.Effects
             bandageEffect.ApplyTemplate();
             bandageEffect.ApplyIcon();
         }
+
+        private static void SetUpLuckyDice()
+        {
+            // Strictly to show the Lucky Dice effect icon in addition to the RandomEffect from the item(and to know that the dice have been used within the re-use cycle time
+            SL_StatusEffect luckyDiceEffect = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Bless",
+                NewStatusID = LUCKY_DICE_EFFECT_ID,
+                StatusIdentifier = LUCKY_DICE_EFFECT_NAME,
+                Name = "Lucky Dice",
+                Description = "The chaotic effects of the dice only seem to work once every 10 minutes.",
+                Purgeable = true, //? CHANGE TO FALSE AFTER TESTING
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = LUCKY_DICE_EFFECT_DURATION,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                ReferenceFamilyUID = LUCKY_DICE_REFERENCE_FAMILY_ID,
+                EffectBehaviour = EditBehaviours.DestroyEffects,
+            };
+            luckyDiceEffect.SLPackName = Plugin.PACKID;
+            luckyDiceEffect.ApplyTemplate();
+            luckyDiceEffect.ApplyIcon();
+        }
     }
+
 }
 
 
