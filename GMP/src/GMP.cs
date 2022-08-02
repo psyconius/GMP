@@ -137,10 +137,7 @@ namespace GMP
             VolatilePotionEffects.Init();
             ScrollEffects.Init();
 
-            // Misc
-            GMPItems.Init();
-
-            // Bandages
+            // Bandages, Dice, + Misc
             GMPItems.Init();
 
             // Scrolls
