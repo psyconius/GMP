@@ -65,7 +65,16 @@ namespace GMP
             if (Input.GetKeyUp(KeyCode.KeypadMinus))
             {
                 Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
-                EnvironmentConditions.Instance.SetTimeOfDay(22f);
+                //EnvironmentConditions.Instance.SetTimeOfDay(22f);
+
+                myChar.Stats.AffectHealth(-50f);
+                myChar.Stats.AffectStamina(-50f);
+                myChar.Stats.m_mana -= 50f;
+
+                myChar.Stats.m_burntMana = 95f;
+                myChar.Stats.m_burntStamina = 95f;
+                myChar.Stats.m_burntMana = 95f;
+
             }
 
             if (Input.GetKeyUp(KeyCode.KeypadPlus))
@@ -122,14 +131,17 @@ namespace GMP
 
         private void SL_OnPacksLoaded()
         {
-            // Misc
+
+            //Effects 
             GMPEffects.Init();
-            GMPItems.CreateMisc();
-            MiscRecipes.Init();
+            VolatilePotionEffects.Init();
+            ScrollEffects.Init();
+
+            // Misc
+            GMPItems.Init();
 
             // Bandages
-            GMPItems.CreateBandages();
-            BandageRecipes.Init();
+            GMPItems.Init();
 
             // Scrolls
             Scrolls.Init();
@@ -137,7 +149,5 @@ namespace GMP
             // Volatile Potions
             VolatilePotions.Init();
         }
-
-        
     }
 }

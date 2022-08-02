@@ -44,7 +44,15 @@ namespace GMP
         const float FIREFLY_PUREE_WEIGHT = 0.2f;
         const int FIREFLY_PUREE_VAL = 6;
 
-        public static void CreateBandages()
+        public static void Init()
+        {
+            CreateBandages();
+            CreateMisc();
+            BandageRecipes.Init();
+            MiscRecipes.Init();
+        }
+
+        private static void CreateBandages()
         {
             Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
             SL_Item hqBandage = new SL_Item()
@@ -178,7 +186,7 @@ namespace GMP
         }
 
         //? Possibly sort this later
-        public static void CreateMisc()
+        private static void CreateMisc()
         {
             SL_Item dice = new SL_Item()
             {

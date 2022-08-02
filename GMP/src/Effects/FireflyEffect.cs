@@ -26,7 +26,6 @@ namespace GMP
 
         public override void ActivateLocally(Character _affectedCharacter, object[] _infos)
         {
-            Plugin.Log.LogMessage("Checking AL");
             // Check to see 
             if (!isActivated)
             {

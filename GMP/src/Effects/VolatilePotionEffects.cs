@@ -34,19 +34,19 @@ namespace GMP
         public const float VP_STAMINABURN = -25f;
         public const int VP_DEATHCHANCE = 10;
 
-        public const int VP_ETHEREALPROTECT_EFFECT_ID = -31825;
+        public const int VP_ETHEREALPROTECT_EFFECT_ID = -31865;
         public const string VP_ETHEREALPROTECT_EFFECT_NAME = "VP_EtherealProtection";
 
-        public const int VP_DECAYROTECT_EFFECT_ID = -31826;
+        public const int VP_DECAYROTECT_EFFECT_ID = -31866;
         public const string VP_DECAYPROTECT_EFFECT_NAME = "VP_DecayProtection";
 
-        public const int VP_LIGHTNINGPROTECT_EFFECT_ID = -31827;
+        public const int VP_LIGHTNINGPROTECT_EFFECT_ID = -31867;
         public const string VP_LIGHTNINGPROTECT_EFFECT_NAME = "VP_LightningProtection";
 
-        public const int VP_FROSTPROTECT_EFFECT_ID = -31828;
+        public const int VP_FROSTPROTECT_EFFECT_ID = -31868;
         public const string VP_FROSTPROTECT_EFFECT_NAME = "VP_FrostProtection";
 
-        public const int VP_FIREPROTECT_EFFECT_ID = -31829;
+        public const int VP_FIREPROTECT_EFFECT_ID = -31869;
         public const string VP_FIREPROTECT_EFFECT_NAME = "VP_FireProtection";
 
 

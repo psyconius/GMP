@@ -49,7 +49,6 @@ namespace GMP
         public const int S_LES_ACUITY_EFFECT = -31858;
         public const string S_LES_ACUITY_EFFECT_NAME = "Scroll_LesserAcuity";
 
-        //?HERE
         public const int S_MAJ_REGENERATION_EFFECT = -31859;
         public const string S_MAJ_REGENERATION_EFFECT_NAME = "Scroll_MajorRegeneration";
 
@@ -59,15 +58,7 @@ namespace GMP
         public const int S_MAJ_ACUITY_EFFECT = -31861;
         public const string S_MAJ_ACUITY_EFFECT_NAME = "Scroll_MajorAcuity";
 
-        public const int S_MAJ_REJUVENATION_EFFECT = -31862;
-        public const string S_MAJ_REJUVENATION_EFFECT_NAME = "Scroll_MajorRejuvenation";
 
-        public const int S_MAJ_REFRESH_EFFECT = -31863;
-        public const string S_MAJ_REFRESH_EFFECT_NAME = "Scroll_MajorRefresh";
-
-        public const int S_MAJ_MENTALRESPITE_EFFECT = -31864;
-        public const string S_MAJ_MENTALRESPITE_EFFECT_NAME = "Scroll_MajorMentalRespite";
-        private const float S_MAJ_EFFECT_VAL = 50f;
 
 
         public static void Init()
@@ -421,9 +412,9 @@ namespace GMP
                 ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
                 EffectBehaviour = EditBehaviours.NONE,
             };
-            lesacuityEffect.SLPackName = Plugin.PACKID;
-            lesacuityEffect.ApplyTemplate();
-            lesacuityEffect.ApplyIcon();
+            majacuityEffect.SLPackName = Plugin.PACKID;
+            majacuityEffect.ApplyTemplate();
+            majacuityEffect.ApplyIcon();
         }
     }
 }

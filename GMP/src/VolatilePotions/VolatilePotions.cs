@@ -30,7 +30,6 @@ namespace GMP
         public static void Init()
         {
             SetUpTags();
-            VolatilePotionEffects.Init();
             SetUpPotions();
             VolatilePotionRecipes.Init();
         }
