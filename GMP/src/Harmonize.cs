@@ -23,42 +23,61 @@ namespace GMP
                 return;
             if (__instance.ItemID == GMPItems.LUCKY_DICE) // Check for Lucky Dice
             {
-                Character character = CharacterManager.Instance.GetFirstLocalCharacter();
-
-                // Make sure that we are outside the 10 minute window via check for base effect
-                if (!_targetChar.StatusEffectMngr.HasStatusEffect(GMPEffects.LUCKY_DICE_EFFECT_NAME))
-                {
-                    // Add Lucky Dice effect
-                    character.StatusEffectMngr.AddStatusEffect(GMPEffects.LUCKY_DICE_EFFECT_NAME);
-
-                    // Build effect list
-                    List<string> effectList = new List<string> { "Rage", "Discipline", "Warm", "Cool", "Elemental Resistance", "Speed Up", "Confusion", "Pain", "Chill", "Burn", "Elemental Vulnerability", "Slow Down" };
-
-                    // Add random status
-                    int rng = UnityEngine.Random.Range(0, 11);
-                    character.StatusEffectMngr.AddStatusEffect(effectList[rng]);
-                }
-                else
-                {
-                    string loc = LocalizationManager.Instance.GetLoc("Rolling the dice has no effect.");
-                    character.CharacterUI.ShowInfoNotification(loc);
-                }
+                LuckyDiceEffect(_targetChar);
             }
-            else if (__instance.ItemID == GMPItems.DICE || __instance.ItemID == GMPItems.FANCY_DICE)
+            else if (__instance.ItemID == GMPItems.DICE || __instance.ItemID == GMPItems.FANCY_DICE) // Check for normal dice
             {
-                int rng = UnityEngine.Random.Range(2, 12);
-                GMPNetwork.Instance.SendNotificationRequest(_targetChar.Name + " has rolled a " + rng);
-
-                //TODO Fix multiplayer dice
-                //foreach (PlayerSystem player in Global.Lobby.PlayersInLobby)
-                //{
-                //    Character otherchar = player.ControlledCharacter;
-                //    Plugin.Log.LogMessage("Connected Player " + otherchar.Name);
-                //    Plugin.Log.LogMessage("Connected Player is world host: " + otherchar.IsWorldHost);
-
-                //    otherchar.CharacterUI.BroadcastMessage("ShowInfoNotification", new object[] { $"{_targetChar.Name} has rolled a {rng}", });
-                //}
+                DoDiceRoll(_targetChar);
             }
+            else if (__instance.ItemID == Scrolls.SCROLL_CHAOTIC) // Check for Scroll of Chaotic Blessing
+            {
+                ChaoticBlessingEffect();
+            }
+        }
+
+        private static void LuckyDiceEffect(Character _targetChar)
+        {
+            Character character = CharacterManager.Instance.GetFirstLocalCharacter();
+
+            // Make sure that we are outside the 10 minute window via check for base effect
+            if (!_targetChar.StatusEffectMngr.HasStatusEffect(GMPEffects.LUCKY_DICE_EFFECT_NAME))
+            {
+                // Add Lucky Dice effect
+                character.StatusEffectMngr.AddStatusEffect(GMPEffects.LUCKY_DICE_EFFECT_NAME);
+
+                // Build effect list
+                List<string> effectList = new List<string> { "Rage", "Discipline", "Warm", "Cool", "Elemental Resistance", "Speed Up", "Confusion", "Pain", "Chill", "Burn", "Elemental Vulnerability", "Slow Down" };
+
+                // Add random status
+                int rng = UnityEngine.Random.Range(0, 11);
+                character.StatusEffectMngr.AddStatusEffect(effectList[rng]);
+            }
+            else
+            {
+                string loc = LocalizationManager.Instance.GetLoc("Rolling the dice has no effect.");
+                character.CharacterUI.ShowInfoNotification(loc);
+            }
+        }
+
+        private static void DoDiceRoll(Character _targetChar)
+        {
+            // Dice roll for multiplayer (and solo) message
+            int rng = UnityEngine.Random.Range(2, 12);
+            GMPNetwork.Instance.SendNotificationRequest(_targetChar.Name + " has rolled a " + rng);
+        }
+
+        private static void ChaoticBlessingEffect()
+        {
+            // Add random effects for Scroll of Chaotic Blessing
+            Character character = CharacterManager.Instance.GetFirstLocalCharacter();
+
+            List<string> posEffects = new List<string> { "Warm", "Cool", "Mist", "Bless", "Possessed", "Rage", "Discipline", "Speed Up" };
+            List<string> negEffects = new List<string> { "Confusion", "Pain", "Burn", "Chill", "Haunted", "Doom", "Curse", "Slow Down" };
+            int rngPos = UnityEngine.Random.Range(0, 7);
+            int rngNeg = UnityEngine.Random.Range(0, 7);
+
+            character.StatusEffectMngr.AddStatusEffect(posEffects[rngPos]);
+            character.StatusEffectMngr.AddStatusEffect(negEffects[rngNeg]);
         }
 
         [HarmonyPrefix, HarmonyPatch(typeof(CraftingMenu), nameof(CraftingMenu.TryCraft))]

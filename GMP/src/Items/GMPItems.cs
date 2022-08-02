@@ -289,7 +289,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Spark } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Spark } },
                             new SL_AddStatusEffect { StatusEffect = GMPEffects.FIREFLY_EFFECT_NAME, ChanceToContract = 100 },
                             new SL_PlayAssetBundleVFX
                             {

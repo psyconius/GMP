@@ -51,13 +51,14 @@ namespace GMP
         public const int SCROLL_MAJ_REF = -31163;
         public const int SCROLL_MAJ_MR = -31164;
         public const int SCROLL_MAJ_ETHEREALRES = -31165;
-        public const int SCROLL_MAJ_DECAYRES = -31167;
-        public const int SCROLL_MAJ_LIGHTNINGRES = -31168;
-        public const int SCROLL_MAJ_FROSTRES = -31169;
-        public const int SCROLL_MAJ_FIRERES = -31170;
+        public const int SCROLL_MAJ_DECAYRES = -31166;
+        public const int SCROLL_MAJ_LIGHTNINGRES = -31167;
+        public const int SCROLL_MAJ_FROSTRES = -31168;
+        public const int SCROLL_MAJ_FIRERES = -31169;
         public const int SCROLL_FIREFLIES = -31170;
         public const int SCROLL_CHAOTIC = -31171;
         public const int SCROLL_ELEMENTALPACT = -31172;
+        public const int SCROLL_SUMMONSUPPLIES = -31173;
 
         public const float REJREFMEN_HEAL = 50f;
 
@@ -206,7 +207,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.CS_TRex_Roar } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.CS_TRex_Roar } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXDiscipline, AutoStopTime = 3f },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_WARRIOR_EFFECT_NAME, ChanceToContract = 100 },
                         }
@@ -241,7 +242,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_RuneSpell } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_RuneSpell } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXCallToElements, AutoStopTime = 3f },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_MAGE_EFFECT_NAME, ChanceToContract = 100 },
                         }
@@ -276,7 +277,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Brace } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Brace } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXShieldBrace, AutoStopTime = 3f },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_STOUTNESS_EFFECT_NAME, ChanceToContract = 100 },
                         }
@@ -311,7 +312,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXCallToElements, AutoStopTime = 3f },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_ELEMRES_EFFECT_NAME, ChanceToContract = 100 },
                         }
@@ -346,7 +347,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_BoonSpell } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_BoonSpell } },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_CHEETAH_EFFECT_NAME, ChanceToContract = 100 },
                         }
                     }
@@ -380,7 +381,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Mist } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Mist } },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_SHIMMER_EFFECT_NAME, ChanceToContract = 100 },
                         }
                     }
@@ -414,7 +415,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Warm } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Warm } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXGiftOfBlood, AutoStopTime = 3f },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_LES_REGENERATION_EFFECT_NAME, ChanceToContract = 100 },
                         }
@@ -449,7 +450,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_BoonSpell } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_BoonSpell } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXDiscipline, AutoStopTime = 3f },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_LES_REINVIGORATION_EFFECT_NAME, ChanceToContract = 100 },
                         }
@@ -484,7 +485,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXBoonEthereal, AutoStopTime = 3f },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_LES_ACUITY_EFFECT_NAME, ChanceToContract = 100 },
                         }
@@ -519,7 +520,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Warm } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Warm } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXGiftOfBlood, AutoStopTime = 3f },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_MAJ_REGENERATION_EFFECT_NAME, ChanceToContract = 100 },
                         }
@@ -554,7 +555,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_BoonSpell } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_BoonSpell } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXDiscipline, AutoStopTime = 3f },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_MAJ_REINVIGORATION_EFFECT_NAME, ChanceToContract = 100 },
                         }
@@ -589,7 +590,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXBoonEthereal, AutoStopTime = 3f },
                             new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_MAJ_ACUITY_EFFECT_NAME, ChanceToContract = 100 },
                         }
@@ -624,7 +625,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Warm } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Warm } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXGiftOfBlood, AutoStopTime = 3f },
                             new SL_AffectBurntHealth { AffectQuantity = 100f, IsModifier = true },
                             new SL_AffectHealth { AffectQuantity = REJREFMEN_HEAL, IsModifier = false }
@@ -660,7 +661,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_BoonSpell } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_BoonSpell } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXDiscipline, AutoStopTime = 3f },
                             new SL_AffectBurntStamina { AffectQuantity = 100f, IsModifier = true },
                             new SL_AffectStamina { AffectQuantity = REJREFMEN_HEAL }
@@ -696,7 +697,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
                             new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXBoonEthereal, AutoStopTime = 3f },
                             new SL_AffectBurntMana { AffectQuantity = 100f, IsModifier = true },
                             new SL_AffectMana { AffectQuantity = REJREFMEN_HEAL, AffectType = AffectMana.AffectTypes.Restaure }
@@ -732,7 +733,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
                             new SL_AddStatusEffect { StatusEffect = VolatilePotionEffects.EP_ETHEREALRESIST_EFFECT_NAME, ChanceToContract = 100 }
                         }
                     }
@@ -766,7 +767,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
                             new SL_AddStatusEffect { StatusEffect = VolatilePotionEffects.EP_DECAYRESIST_EFFECT_NAME, ChanceToContract = 100 }
                         }
                     }
@@ -800,7 +801,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
                             new SL_AddStatusEffect { StatusEffect = VolatilePotionEffects.EP_LIGHTNINGRESIST_EFFECT_NAME, ChanceToContract = 100 }
                         }
                     }
@@ -834,7 +835,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
                             new SL_AddStatusEffect { StatusEffect = VolatilePotionEffects.EP_FROSTRESIST_EFFECT_NAME, ChanceToContract = 100 }
                         }
                     }
@@ -851,7 +852,7 @@ namespace GMP
             SL_Item majFireRes = new SL_Item()
             {
                 Target_ItemID = BLANK_SCROLL,
-                New_ItemID = SCROLL_MAJ_ETHEREALRES,
+                New_ItemID = SCROLL_MAJ_FIRERES,
                 Name = "Scroll of Major Fire Resistance",
                 Description = "Grants major resistance to fire damage.",
                 StatsHolder = new SL_ItemStats { BaseValue = SCROLL_T2_VAL, RawWeight = SCROLL_WEIGHT },
@@ -868,7 +869,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
                             new SL_AddStatusEffect { StatusEffect = VolatilePotionEffects.EP_FIRERESIST_EFFECT_NAME, ChanceToContract = 100 }
                         }
                     }
@@ -902,7 +903,7 @@ namespace GMP
                         TransformName = "Normal",
                         Effects = new SL_Effect[]
                         {
-                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
                             new SL_AddStatusEffect { StatusEffect = GMPEffects.FIREFLY_EFFECT_NAME, ChanceToContract = 100 },
                             new SL_PlayAssetBundleVFX
                             {
@@ -921,6 +922,78 @@ namespace GMP
                 },
             };
             ApplyBlueScroll(fireflyScroll);
+
+            SL_Item chaoticScroll = new SL_Item()
+            {
+                Target_ItemID = BLANK_SCROLL,
+                New_ItemID = SCROLL_CHAOTIC,
+                Name = "Scroll of Chaotic Blessing",
+                Description = "Grants a positive and negative effect.",
+                StatsHolder = new SL_ItemStats { BaseValue = SCROLL_T1_VAL, RawWeight = SCROLL_WEIGHT },
+                IsUsable = true,
+                CastType = Character.SpellCastType.CallElements,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 1,
+                Tags = new string[] { "Item", TAG_SCROLL, TAG_BLUE_SCROLL },
+                EffectBehaviour = EditBehaviours.Destroy,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Normal",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_BoonSpell } },
+                            new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXDetectSoul, AutoStopTime = 3f },
+                        }
+                    }
+                },
+                ItemVisuals = new SL_ItemVisual
+                {
+                    Prefab_SLPack = Plugin.PACKID,
+                    Prefab_AssetBundle = "scrolls",
+                    Prefab_Name = "bluescroll"
+                },
+            };
+            ApplyBlueScroll(chaoticScroll);
+
+            SL_Item summonScroll = new SL_Item()
+            {
+                Target_ItemID = BLANK_SCROLL,
+                New_ItemID = SCROLL_SUMMONSUPPLIES,
+                Name = "Scroll of Summon Supplies",
+                Description = "Summons bandages, a travel ration, clean water, and 3 wood.",
+                StatsHolder = new SL_ItemStats { BaseValue = SCROLL_T1_VAL, RawWeight = SCROLL_WEIGHT },
+                IsUsable = true,
+                CastType = Character.SpellCastType.CallElements,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 1,
+                Tags = new string[] { "Item", TAG_SCROLL, TAG_BLUE_SCROLL },
+                EffectBehaviour = EditBehaviours.Destroy,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Normal",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_AirSigil_Preparation } },
+                            new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXTeleport, AutoStopTime = 3f },
+                            new SL_CreateItemEffect { ItemToCreate = 4400010, Quantity = 1}, //bandages
+                            new SL_CreateItemEffect { ItemToCreate = 4100550, Quantity = 1}, //travel ration
+                            new SL_CreateItemEffect { ItemToCreate = 5600000, Quantity = 1}, //clean water
+                            new SL_CreateItemEffect { ItemToCreate = 6100010, Quantity = 3} //wood
+                        }
+                    }
+                },
+                ItemVisuals = new SL_ItemVisual
+                {
+                    Prefab_SLPack = Plugin.PACKID,
+                    Prefab_AssetBundle = "scrolls",
+                    Prefab_Name = "bluescroll"
+                },
+            };
+            ApplyBlueScroll(summonScroll);
         }
 
         private static void ApplyBlueScroll(SL_Item scrollTemplate)
