@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SideLoader;
+using SideLoader_ExtendedEffects;
 using UnityEngine;
 
 namespace GMP
@@ -38,6 +39,10 @@ namespace GMP
         public const int LUCKY_DICE = -31133;
         const float LUCKY_DICE_WEIGHT = 0.5f;
         const int LUCKY_DICE_VAL = 300;
+
+        public const int FIREFLY_PUREE = -31191;
+        const float FIREFLY_PUREE_WEIGHT = 0.2f;
+        const int FIREFLY_PUREE_VAL = 6;
 
         public static void CreateBandages()
         {
@@ -83,7 +88,6 @@ namespace GMP
                         Effects = new SL_Effect[]
                         {
                             new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Poison"},
-                            new SL_RemoveStatusEffect { CleanseType = RemoveStatusEffect.RemoveTypes.StatusType, SelectorValue = "Decay"},
                             new SL_AddStatusEffect { StatusEffect = GMPEffects.CUR_BANDAGE_EFFECT_NAME, ChanceToContract = 100 },
                             new SL_AddStatusEffect { StatusEffect = GMPEffects.BETTER_BANDAGE_EFFECT_NAME, ChanceToContract = 100 }
                         }
@@ -252,6 +256,53 @@ namespace GMP
             luckyDice.SubfolderName = "LuckyDice";
             luckyDice.ApplyTemplate();
 
+            SL_Item fireflyPuree = new SL_Item()
+            {
+                Target_ItemID = 4300290, // Purity Potion
+                New_ItemID = FIREFLY_PUREE,
+                Name = "Vial of Firefly Puree",
+                Description = "A vial filled with the essence of fireflies. Smash it to create a light source.",
+                StatsHolder = new SL_ItemStats { BaseValue = LUCKY_DICE_VAL, RawWeight = LUCKY_DICE_WEIGHT },
+                QtyRemovedOnUse = 1,
+                IsUsable = true,
+                CastType = Character.SpellCastType.Flint,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 1,
+                Tags = new string[] { "Item", "Consummable" },
+                ItemExtensions = new SL_ItemExtension[]
+                {
+                    new SL_MultipleUsage { AutoStack = true, MaxStackAmount = 999 }
+                },
+                EffectBehaviour = EditBehaviours.Destroy,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Normal",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Spark } },
+                            new SL_AddStatusEffect { StatusEffect = GMPEffects.FIREFLY_EFFECT_NAME, ChanceToContract = 100 },
+                            new SL_PlayAssetBundleVFX
+                            {
+                                SLPackName = Plugin.PACKID,
+                                AssetBundleName = "fireflies",
+                                PrefabName = "thefireflies",
+                            },
+                        }
+                    }
+                },
+                //ItemVisuals = new SL_ItemVisual
+                //{
+                //    Prefab_SLPack = Plugin.PACKID,
+                //    Prefab_AssetBundle = "dice",
+                //    Prefab_Name = "luckydice"
+
+                //},
+            };
+            fireflyPuree.SLPackName = Plugin.PACKID;
+            fireflyPuree.SubfolderName = "FireflyPuree";
+            fireflyPuree.ApplyTemplate();
         }
     }
 }

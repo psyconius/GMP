@@ -23,7 +23,7 @@ namespace GMP
         // Choose a NAME for your project, generally the same as your Assembly Name.
         public const string NAME = "GMP - Gothiska Mod Pack";
         // Increment the VERSION when you release a new version of your mod.
-        public const string VERSION = "0.3.1";
+        public const string VERSION = "0.3.2";
 
         // For accessing your BepInEx Logger from outside of this class (eg Plugin.Log.LogMessage("");)
         public static ManualLogSource Log;
@@ -65,9 +65,7 @@ namespace GMP
             if (Input.GetKeyUp(KeyCode.KeypadMinus))
             {
                 Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
-                //myChar.Stats.m_manaUseModifiers.AddRawStack(new StatStack("test", 0.2f));
-                //myChar.Stats.m_manaUseModifiers.CurrentValue.Equals(myChar.Stats.m_manaUseModifiers.CurrentValue + 0.2f);
-                myChar.StatusEffectMngr.AddStatusEffect("Gaberry Wine");
+                EnvironmentConditions.Instance.SetTimeOfDay(22f);
             }
 
             if (Input.GetKeyUp(KeyCode.KeypadPlus))
@@ -83,48 +81,43 @@ namespace GMP
 
             if (Input.GetKeyUp(KeyCode.KeypadPeriod))
             {
-                Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
-                int rng = UnityEngine.Random.Range(1, 12);
-                GMPNetwork.Instance.SendNotificationRequest(myChar.Name + " has rolled a " + rng);
+                Character myCharacter = CharacterManager.Instance.GetFirstLocalCharacter();
+                Log.LogMessage("Time of Day: " + EnvironmentConditions.Instance.TimeOfDay);
+                Log.LogMessage("Is it night? " + EnvironmentConditions.Instance.GetIsNight(EnvironmentConditions.Instance.TimeOfDay));
             };
-                
-                //test.RPC("SendNotificationRequest", $"{myChar} has rolled a {rng}"})
-                
 
-                //Light light = myChar.gameObject.AddComponent<Light>();
-                //light.type = LightType.Point;
-                //light.name = "testlight";
-                //light.intensity = 8;
-                //light.range = 100;
-                //light.color = Color.yellow;
-                //Log.LogMessage("Physical Resist" + myChar.Stats.m_totalDamageResistance[0]);
-                //Log.LogMessage("Ethereal Resist" + myChar.Stats.m_totalDamageResistance[1]);
-                //Log.LogMessage("Decay resist: " + myChar.Stats.m_totalDamageResistance[2]);
-                //Log.LogMessage("Electric Resist" + myChar.Stats.m_totalDamageResistance[3]);
-                //Log.LogMessage("Frost resist: " + myChar.Stats.m_totalDamageResistance[4]);
-                //Log.LogMessage("Fire resist: " + myChar.Stats.m_totalDamageResistance[5]);
-                //Log.LogMessage("Cold Weather Defense: " + myChar.Stats.m_coldProtection.m_currentValue);
-                //Log.LogMessage("Hot Weather Defense: " + myChar.Stats.m_heatProtection.m_currentValue);
-                //Log.LogMessage("Physical Damage: " + myChar.Stats.m_damageTypesModifier[0].CurrentValue);
-                //Log.LogMessage("Ethereal Damage: " + myChar.Stats.m_damageTypesModifier[1].CurrentValue);
-                //Log.LogMessage("Decay Damage: " + myChar.Stats.m_damageTypesModifier[2].CurrentValue);
-                //Log.LogMessage("Electric Damage: " + myChar.Stats.m_damageTypesModifier[3].CurrentValue);
-                //Log.LogMessage("Frost Damage: " + myChar.Stats.m_damageTypesModifier[4].CurrentValue);
-                //Log.LogMessage("Fire Damage: " + myChar.Stats.m_damageTypesModifier[5].CurrentValue);
-                //Log.LogMessage("Mana Use 'current value': " + myChar.Stats.m_manaUseModifiers.CurrentValue);
-                //Log.LogMessage("Mana Use 'm current value': " + myChar.Stats.m_manaUseModifiers.m_currentValue);
-                //Log.LogMessage("Mana Use mana aug raw: " + myChar.Stats.m_manaAugmentation.RawValue);
-                //Log.LogMessage("Mana Use mana aug perm: " + myChar.Stats.m_manaAugmentation.m_permanent);
-                //Log.LogMessage(".......");
+     
 
-                /*
-                Log.LogMessage("Burnt Health: " + myChar.Stats.BurntHealth);
-                Log.LogMessage("Burnt Health Ratio: " + myChar.Stats.BurntHealthRatio);
-                Log.LogMessage("Base Max Health: " + myChar.Stats.BaseMaxHealth);
-                Log.LogMessage("Max Health: " + myChar.Stats.MaxHealth);
-                Log.LogMessage("Base Max Health: " + myChar.Stats.StartingHealth);
-                */
-            
+
+
+            //Log.LogMessage("Physical Resist" + myChar.Stats.m_totalDamageResistance[0]);
+            //Log.LogMessage("Ethereal Resist" + myChar.Stats.m_totalDamageResistance[1]);
+            //Log.LogMessage("Decay resist: " + myChar.Stats.m_totalDamageResistance[2]);
+            //Log.LogMessage("Electric Resist" + myChar.Stats.m_totalDamageResistance[3]);
+            //Log.LogMessage("Frost resist: " + myChar.Stats.m_totalDamageResistance[4]);
+            //Log.LogMessage("Fire resist: " + myChar.Stats.m_totalDamageResistance[5]);
+            //Log.LogMessage("Cold Weather Defense: " + myChar.Stats.m_coldProtection.m_currentValue);
+            //Log.LogMessage("Hot Weather Defense: " + myChar.Stats.m_heatProtection.m_currentValue);
+            //Log.LogMessage("Physical Damage: " + myChar.Stats.m_damageTypesModifier[0].CurrentValue);
+            //Log.LogMessage("Ethereal Damage: " + myChar.Stats.m_damageTypesModifier[1].CurrentValue);
+            //Log.LogMessage("Decay Damage: " + myChar.Stats.m_damageTypesModifier[2].CurrentValue);
+            //Log.LogMessage("Electric Damage: " + myChar.Stats.m_damageTypesModifier[3].CurrentValue);
+            //Log.LogMessage("Frost Damage: " + myChar.Stats.m_damageTypesModifier[4].CurrentValue);
+            //Log.LogMessage("Fire Damage: " + myChar.Stats.m_damageTypesModifier[5].CurrentValue);
+            //Log.LogMessage("Mana Use 'current value': " + myChar.Stats.m_manaUseModifiers.CurrentValue);
+            //Log.LogMessage("Mana Use 'm current value': " + myChar.Stats.m_manaUseModifiers.m_currentValue);
+            //Log.LogMessage("Mana Use mana aug raw: " + myChar.Stats.m_manaAugmentation.RawValue);
+            //Log.LogMessage("Mana Use mana aug perm: " + myChar.Stats.m_manaAugmentation.m_permanent);
+            //Log.LogMessage(".......");
+
+            /*
+            Log.LogMessage("Burnt Health: " + myChar.Stats.BurntHealth);
+            Log.LogMessage("Burnt Health Ratio: " + myChar.Stats.BurntHealthRatio);
+            Log.LogMessage("Base Max Health: " + myChar.Stats.BaseMaxHealth);
+            Log.LogMessage("Max Health: " + myChar.Stats.MaxHealth);
+            Log.LogMessage("Base Max Health: " + myChar.Stats.StartingHealth);
+            */
+
         }
 
         private void SL_OnPacksLoaded()
@@ -132,6 +125,7 @@ namespace GMP
             // Misc
             GMPEffects.Init();
             GMPItems.CreateMisc();
+            MiscRecipes.Init();
 
             // Bandages
             GMPItems.CreateBandages();

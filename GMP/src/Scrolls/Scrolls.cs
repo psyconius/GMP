@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SideLoader;
+using SideLoader_ExtendedEffects;
 using UnityEngine;
 
 namespace GMP
@@ -12,6 +13,7 @@ namespace GMP
         public const string TAG_QUILL = "Quill";
         public const string TAG_SCROLL = "Scroll";
         public const string TAG_INK = "Ink";
+        public const string TAG_PAPER = "Paper";
         public const string TAG_BLUE_SCROLL = "Blue Scroll";
         public const string TAG_RED_SCROLL = "Red Scroll";
 
@@ -64,6 +66,7 @@ namespace GMP
             ScrollEffects.Init(); // Setup Effects
             CreateScrollSupport(); // Base items for crafting
             CreateScrolls(); // Actual cast scrolls
+            ScrollRecipes.Init(); // Create Recipes
         }
 
         private static void SetUpTags()
@@ -75,6 +78,7 @@ namespace GMP
                     new SL_TagDefinition { TagName = TAG_QUILL },
                     new SL_TagDefinition { TagName = TAG_SCROLL },
                     new SL_TagDefinition { TagName = TAG_INK },
+                    new SL_TagDefinition { TagName = TAG_PAPER },
                     new SL_TagDefinition { TagName = TAG_BLUE_SCROLL },
                     new SL_TagDefinition { TagName = TAG_RED_SCROLL }
                 }
@@ -160,7 +164,7 @@ namespace GMP
                 Description = "A blank scroll made of imbued parchment for use in magical scroll creation.",
                 StatsHolder = new SL_ItemStats { BaseValue = BLANK_SCROLL_VAL, RawWeight = SCROLL_WEIGHT },
                 IsUsable = false,
-                Tags = new string[] { "Item", "Paper", "Book", "Ingredient" },
+                Tags = new string[] { "Item", "Paper", "Ingredient" },
                 EffectBehaviour = EditBehaviours.Override,
                 ItemVisuals = new SL_ItemVisual
                 {
@@ -506,6 +510,160 @@ namespace GMP
             lesacuScroll.SLPackName = Plugin.PACKID;
             lesacuScroll.SubfolderName = "BlueScroll";
             lesacuScroll.ApplyTemplate();
+
+            SL_Item majregScroll = new SL_Item()
+            {
+                Target_ItemID = BLANK_SCROLL,
+                New_ItemID = SCROLL_LES_REG,
+                Name = "Scroll of Major Regeneration",
+                Description = "Grants a large amount of health regeneration.",
+                StatsHolder = new SL_ItemStats { BaseValue = SCROLL_T2_VAL, RawWeight = SCROLL_WEIGHT },
+                IsUsable = true,
+                CastType = Character.SpellCastType.Cleanse,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 1,
+                Tags = new string[] { "Item", TAG_SCROLL, TAG_BLUE_SCROLL },
+                EffectBehaviour = EditBehaviours.Destroy,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Normal",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_Warm } },
+                            new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXGiftOfBlood, AutoStopTime = 3f },
+                            new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_MAJ_REGENERATION_EFFECT_NAME, ChanceToContract = 100 },
+                        }
+                    }
+                },
+                ItemVisuals = new SL_ItemVisual
+                {
+                    Prefab_SLPack = Plugin.PACKID,
+                    Prefab_AssetBundle = "scrolls",
+                    Prefab_Name = "bluescroll"
+                },
+            };
+            majregScroll.SLPackName = Plugin.PACKID;
+            majregScroll.SubfolderName = "BlueScroll";
+            majregScroll.ApplyTemplate();
+
+
+            SL_Item majreiScroll = new SL_Item()
+            {
+                Target_ItemID = BLANK_SCROLL,
+                New_ItemID = SCROLL_MAJ_REI,
+                Name = "Scroll of Major Reinvigoration",
+                Description = "Grants a large amount of stamina regeneration.",
+                StatsHolder = new SL_ItemStats { BaseValue = SCROLL_T2_VAL, RawWeight = SCROLL_WEIGHT },
+                IsUsable = true,
+                CastType = Character.SpellCastType.Cleanse,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 1,
+                Tags = new string[] { "Item", TAG_SCROLL, TAG_BLUE_SCROLL },
+                EffectBehaviour = EditBehaviours.Destroy,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Normal",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_BoonSpell } },
+                            new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXDiscipline, AutoStopTime = 3f },
+                            new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_MAJ_REINVIGORATION_EFFECT_NAME, ChanceToContract = 100 },
+                        }
+                    }
+                },
+                ItemVisuals = new SL_ItemVisual
+                {
+                    Prefab_SLPack = Plugin.PACKID,
+                    Prefab_AssetBundle = "scrolls",
+                    Prefab_Name = "bluescroll"
+                },
+            };
+            majreiScroll.SLPackName = Plugin.PACKID;
+            majreiScroll.SubfolderName = "BlueScroll";
+            majreiScroll.ApplyTemplate();
+
+            SL_Item majacuScroll = new SL_Item()
+            {
+                Target_ItemID = BLANK_SCROLL,
+                New_ItemID = SCROLL_MAJ_REG,
+                Name = "Scroll of Major Acuity",
+                Description = "Grants a large amount of mana regeneration.",
+                StatsHolder = new SL_ItemStats { BaseValue = SCROLL_T2_VAL, RawWeight = SCROLL_WEIGHT },
+                IsUsable = true,
+                CastType = Character.SpellCastType.Cleanse,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 1,
+                Tags = new string[] { "Item", TAG_SCROLL, TAG_BLUE_SCROLL },
+                EffectBehaviour = EditBehaviours.Destroy,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Normal",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_PlayTimedVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXBoonEthereal, AutoStopTime = 3f },
+                            new SL_AddStatusEffect { StatusEffect = ScrollEffects.S_MAJ_ACUITY_EFFECT_NAME, ChanceToContract = 100 },
+                        }
+                    }
+                },
+                ItemVisuals = new SL_ItemVisual
+                {
+                    Prefab_SLPack = Plugin.PACKID,
+                    Prefab_AssetBundle = "scrolls",
+                    Prefab_Name = "bluescroll"
+                },
+            };
+            majacuScroll.SLPackName = Plugin.PACKID;
+            majacuScroll.SubfolderName = "BlueScroll";
+            majacuScroll.ApplyTemplate();
+
+            SL_Item fireflyScroll = new SL_Item()
+            {
+                Target_ItemID = BLANK_SCROLL,
+                New_ItemID = SCROLL_FIREFLIES,
+                Name = "Scroll of Fireflies",
+                Description = "Grants a light source.",
+                StatsHolder = new SL_ItemStats { BaseValue = SCROLL_T1_VAL, RawWeight = SCROLL_WEIGHT },
+                IsUsable = true,
+                CastType = Character.SpellCastType.CallElements,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 1,
+                Tags = new string[] { "Item", TAG_SCROLL, TAG_BLUE_SCROLL },
+                EffectBehaviour = EditBehaviours.Destroy,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Normal",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = true, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_CallToElement } },
+                            new SL_AddStatusEffect { StatusEffect = GMPEffects.FIREFLY_EFFECT_NAME, ChanceToContract = 100 },
+                            new SL_PlayAssetBundleVFX
+                            {
+                                SLPackName = Plugin.PACKID,
+                                AssetBundleName = "fireflies",
+                                PrefabName = "thefireflies",
+                            },
+                        }
+                    }
+                },
+                ItemVisuals = new SL_ItemVisual
+                {
+                    Prefab_SLPack = Plugin.PACKID,
+                    Prefab_AssetBundle = "scrolls",
+                    Prefab_Name = "bluescroll"
+                },
+            };
+            fireflyScroll.SLPackName = Plugin.PACKID;
+            fireflyScroll.SubfolderName = "BlueScroll";
+            fireflyScroll.ApplyTemplate();
         }
     }
 }

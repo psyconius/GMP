@@ -1,7 +1,7 @@
 {
     "name": "GMP",
     "author": "gothiska",
-    "version_number": "0.3.1",
+    "version_number": "0.3.2",
     "website_url": "https://github.com/psyconius/",
     "description": "GMP - Gothiska Mod Pack",
     "dependencies": [

@@ -20,11 +20,19 @@ namespace GMP
         public const int VP_FROSTPROTECT = -31028;
         public const int VP_FIREPROTECT = -31029;
 
+        public const int EP_RESIST_VAL = 30;
+        public const int EP_ETHEREALRESIST = -31020;
+        public const int EP_DECAYRESIST = -31021;
+        public const int EP_LIGHTNINGRESIST = -31022;
+        public const int EP_FROSTRESIST = -31023;
+        public const int EP_FIRERESIST = -31024;
+
         public static void Init()
         {
             SetUpTags();
             VolatilePotionEffects.Init();
             SetUpPotions();
+            VolatilePotionRecipes.Init();
         }
 
         private static void SetUpTags()
@@ -42,6 +50,181 @@ namespace GMP
 
         private static void SetUpPotions()
         {
+            SL_Item etherealResist = new SL_Item()
+            {
+                Target_ItemID = 4300090, //mist potion
+                New_ItemID = EP_ETHEREALRESIST,
+                Name = "Potion of Ethereal Resistance",
+                Description = "Greatly increases ethereal resistance.",
+                StatsHolder = new SL_ItemStats { BaseValue = EP_RESIST_VAL, RawWeight = EP_WEIGHT },
+                IsUsable = true,
+                CastType = Character.SpellCastType.Potion,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 0,
+                Tags = new string[] { "Item", "Potion", TAG_EP },
+                EffectBehaviour = EditBehaviours.Override,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effect",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AddStatusEffect { StatusEffect = VolatilePotionEffects.EP_ETHEREALRESIST_EFFECT_NAME, ChanceToContract = 100 },
+                        }
+                    },
+                },
+                ItemVisuals = new SL_ItemVisual
+                {
+                    Prefab_SLPack = Plugin.PACKID,
+                    Prefab_AssetBundle = "extendedpotions",
+                    Prefab_Name = "ep_etherealr"
+                },
+            };
+            etherealResist.SLPackName = Plugin.PACKID;
+            etherealResist.SubfolderName = "EP_EtherealResistance";
+            etherealResist.ApplyTemplate();
+
+            SL_Item decayResist = new SL_Item()
+            {
+                Target_ItemID = EP_ETHEREALRESIST,
+                New_ItemID = EP_DECAYRESIST,
+                Name = "Potion of Decay Resistance",
+                Description = "Greatly increases decay resistance.",
+                StatsHolder = new SL_ItemStats { BaseValue = EP_RESIST_VAL, RawWeight = EP_WEIGHT },
+                IsUsable = true,
+                CastType = Character.SpellCastType.Potion,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 0,
+                Tags = new string[] { "Item", "Potion", TAG_EP },
+                EffectBehaviour = EditBehaviours.Override,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effect",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AddStatusEffect { StatusEffect = VolatilePotionEffects.EP_DECAYRESIST_EFFECT_NAME, ChanceToContract = 100 },
+                        }
+                    },
+                },
+                ItemVisuals = new SL_ItemVisual
+                {
+                    Prefab_SLPack = Plugin.PACKID,
+                    Prefab_AssetBundle = "extendedpotions",
+                    Prefab_Name = "ep_decayr"
+                },
+            };
+            decayResist.SLPackName = Plugin.PACKID;
+            decayResist.SubfolderName = "EP_DecayResistance";
+            decayResist.ApplyTemplate();
+
+            SL_Item lightningResist = new SL_Item()
+            {
+                Target_ItemID = EP_ETHEREALRESIST,
+                New_ItemID = EP_LIGHTNINGRESIST,
+                Name = "Potion of Lightning Resistance",
+                Description = "Greatly increases lightning resistance.",
+                StatsHolder = new SL_ItemStats { BaseValue = EP_RESIST_VAL, RawWeight = EP_WEIGHT },
+                IsUsable = true,
+                CastType = Character.SpellCastType.Potion,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 0,
+                Tags = new string[] { "Item", "Potion", TAG_EP },
+                EffectBehaviour = EditBehaviours.Override,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effect",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AddStatusEffect { StatusEffect = VolatilePotionEffects.EP_LIGHTNINGRESIST_EFFECT_NAME, ChanceToContract = 100 },
+                        }
+                    },
+                },
+                ItemVisuals = new SL_ItemVisual
+                {
+                    Prefab_SLPack = Plugin.PACKID,
+                    Prefab_AssetBundle = "extendedpotions",
+                    Prefab_Name = "ep_lightningr"
+                },
+            };
+            lightningResist.SLPackName = Plugin.PACKID;
+            lightningResist.SubfolderName = "EP_LightningResistance";
+            lightningResist.ApplyTemplate();
+
+            SL_Item frostResist = new SL_Item()
+            {
+                Target_ItemID = EP_ETHEREALRESIST,
+                New_ItemID = EP_FROSTRESIST,
+                Name = "Potion of Frost Resistance",
+                Description = "Greatly increases frost resistance.",
+                StatsHolder = new SL_ItemStats { BaseValue = EP_RESIST_VAL, RawWeight = EP_WEIGHT },
+                IsUsable = true,
+                CastType = Character.SpellCastType.Potion,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 0,
+                Tags = new string[] { "Item", "Potion", TAG_EP },
+                EffectBehaviour = EditBehaviours.Override,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effect",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AddStatusEffect { StatusEffect = VolatilePotionEffects.EP_FROSTRESIST_EFFECT_NAME, ChanceToContract = 100 },
+                        }
+                    },
+                },
+                ItemVisuals = new SL_ItemVisual
+                {
+                    Prefab_SLPack = Plugin.PACKID,
+                    Prefab_AssetBundle = "extendedpotions",
+                    Prefab_Name = "ep_frostr"
+                },
+            };
+            frostResist.SLPackName = Plugin.PACKID;
+            frostResist.SubfolderName = "EP_FrostResistance";
+            frostResist.ApplyTemplate();
+
+            SL_Item fireResist = new SL_Item()
+            {
+                Target_ItemID = EP_ETHEREALRESIST,
+                New_ItemID = EP_FIRERESIST,
+                Name = "Potion of Fire Resistance",
+                Description = "Greatly increases fire resistance.",
+                StatsHolder = new SL_ItemStats { BaseValue = EP_RESIST_VAL, RawWeight = EP_WEIGHT },
+                IsUsable = true,
+                CastType = Character.SpellCastType.Potion,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 0,
+                Tags = new string[] { "Item", "Potion", TAG_EP },
+                EffectBehaviour = EditBehaviours.Override,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effect",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AddStatusEffect { StatusEffect = VolatilePotionEffects.EP_FIRERESIST_EFFECT_NAME, ChanceToContract = 100 },
+                        }
+                    },
+                },
+                ItemVisuals = new SL_ItemVisual
+                {
+                    Prefab_SLPack = Plugin.PACKID,
+                    Prefab_AssetBundle = "extendedpotions",
+                    Prefab_Name = "ep_firer"
+                },
+            };
+            fireResist.SLPackName = Plugin.PACKID;
+            fireResist.SubfolderName = "EP_FireResistance";
+            fireResist.ApplyTemplate();
+
             SL_Item etherealProtect = new SL_Item()
             {
                 Target_ItemID = 4300430, //barrier potion
@@ -53,7 +236,7 @@ namespace GMP
                 CastType = Character.SpellCastType.Potion,
                 CastModifier = Character.SpellCastModifier.Immobilized,
                 CastSheatheRequired = 0,
-                //Tags = new string[] { "Item", "Potion", TAG_VP },
+                Tags = new string[] { "Item", "Potion", TAG_VP },
                 EffectBehaviour = EditBehaviours.Destroy,
                 EffectTransforms = new SL_EffectTransform[]
                 {
@@ -72,7 +255,7 @@ namespace GMP
                         TransformName = "ExtraEffects",
                         EffectConditions = new SL_EffectCondition[]
                         {
-                            new SL_ProbabilityCondition { ChancePercent = 100 }//?VolatilePotionEffects.VP_DEATHCHANCE } 
+                            new SL_ProbabilityCondition { ChancePercent = VolatilePotionEffects.VP_DEATHCHANCE }
                         },
                         Effects = new SL_Effect[]
                         {
@@ -108,7 +291,7 @@ namespace GMP
                 CastType = Character.SpellCastType.Potion,
                 CastModifier = Character.SpellCastModifier.Immobilized,
                 CastSheatheRequired = 0,
-                //Tags = new string[] { "Item", "Potion", TAG_VP },
+                Tags = new string[] { "Item", "Potion", TAG_VP },
                 EffectBehaviour = EditBehaviours.Override,
                 EffectTransforms = new SL_EffectTransform[]
                 {
@@ -145,7 +328,7 @@ namespace GMP
                 CastType = Character.SpellCastType.Potion,
                 CastModifier = Character.SpellCastModifier.Immobilized,
                 CastSheatheRequired = 0,
-                //Tags = new string[] { "Item", "Potion", TAG_VP },
+                Tags = new string[] { "Item", "Potion", TAG_VP },
                 EffectBehaviour = EditBehaviours.Override,
                 EffectTransforms = new SL_EffectTransform[]
                 {
@@ -182,7 +365,7 @@ namespace GMP
                 CastType = Character.SpellCastType.Potion,
                 CastModifier = Character.SpellCastModifier.Immobilized,
                 CastSheatheRequired = 0,
-                //Tags = new string[] { "Item", "Potion", TAG_VP },
+                Tags = new string[] { "Item", "Potion", TAG_VP },
                 EffectBehaviour = EditBehaviours.Override,
                 EffectTransforms = new SL_EffectTransform[]
                 {
@@ -219,7 +402,7 @@ namespace GMP
                 CastType = Character.SpellCastType.Potion,
                 CastModifier = Character.SpellCastModifier.Immobilized,
                 CastSheatheRequired = 0,
-                //Tags = new string[] { "Item", "Potion", TAG_VP },
+                Tags = new string[] { "Item", "Potion", TAG_VP },
                 EffectBehaviour = EditBehaviours.Override,
                 EffectTransforms = new SL_EffectTransform[]
                 {

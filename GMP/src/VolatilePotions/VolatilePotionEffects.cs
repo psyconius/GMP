@@ -7,10 +7,26 @@ namespace GMP
 {
     public class VolatilePotionEffects
     {
+        // Families
         public const string EP_FAMILY = "GMP_ExtendedPotions";
         public const string VP_FAMILY = "GMP_VolatilePotions";
 
-        public const float VP_ELE_PROTECT = 1000f;
+        // Extended Potions
+        public const float EP_ELE_RESIST = 50f;
+
+        public const int EP_ETHEREALRESIST_EFFECT_ID = -31020;
+        public const string EP_ETHEREALRESIST_EFFECT_NAME = "EP_EtherealResist";
+        public const int EP_DECAYRESIST_EFFECT_ID = -31021;
+        public const string EP_DECAYRESIST_EFFECT_NAME = "EP_DecayResist";
+        public const int EP_LIGHTNINGRESIST_EFFECT_ID = -31022;
+        public const string EP_LIGHTNINGRESIST_EFFECT_NAME = "EP_LightningResist";
+        public const int EP_FROSTRESIST_EFFECT_ID = -31023;
+        public const string EP_FROSTRESIST_EFFECT_NAME = "EP_FrostResist";
+        public const int EP_FIRERESIST_EFFECT_ID = -31024;
+        public const string EP_FIRERESIST_EFFECT_NAME = "EP_FireResist";
+
+        // Volatile Potions
+        public const float VP_ELE_PROTECT = 10000f;
         public const float VP_PHYRES = 50f;
         public const float VP_IMPRES = 50f;
         public const float VP_BAR = 15f;
@@ -63,6 +79,166 @@ namespace GMP
 
         private static void SetUpEffects()
         {
+            SL_StatusEffect etherealResist = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Mist",
+                NewStatusID = EP_ETHEREALRESIST_EFFECT_ID,
+                StatusIdentifier = EP_ETHEREALRESIST_EFFECT_NAME,
+                Name = "Potion of Ethereal Resistance",
+                Description = "Adds 50% ethereal resistance.",
+                Purgeable = true,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = 120f,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                ReferenceFamilyUID = EP_FAMILY,
+                EffectBehaviour = EditBehaviours.Destroy,
+                Effects = new SL_EffectTransform[]
+               {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effect",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AffectStat { Stat_Tag = "EtherealResistance", AffectQuantity = EP_ELE_RESIST, IsModifier = false },
+                            new SL_PlayVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXBoonEthereal }
+                        }
+                    },
+               }
+            };
+            etherealResist.SLPackName = Plugin.PACKID;
+            etherealResist.ApplyTemplate();
+            etherealResist.ApplyIcon();
+
+            SL_StatusEffect decayResist = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Possessed",
+                NewStatusID = EP_DECAYRESIST_EFFECT_ID,
+                StatusIdentifier = EP_DECAYRESIST_EFFECT_NAME,
+                Name = "Potion of Decay Resistance",
+                Description = "Adds 50% decay resistance.",
+                Purgeable = true,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = 120f,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                ReferenceFamilyUID = EP_FAMILY,
+                EffectBehaviour = EditBehaviours.Destroy,
+                Effects = new SL_EffectTransform[]
+               {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effect",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AffectStat { Stat_Tag = "DecayResistance", AffectQuantity = EP_ELE_RESIST, IsModifier = false },
+                            new SL_PlayVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXBoonDecay }
+                        }
+                    },
+               }
+            };
+            decayResist.SLPackName = Plugin.PACKID;
+            decayResist.ApplyTemplate();
+            decayResist.ApplyIcon();
+
+            SL_StatusEffect lightningResist = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Bless",
+                NewStatusID = EP_LIGHTNINGRESIST_EFFECT_ID,
+                StatusIdentifier = EP_LIGHTNINGRESIST_EFFECT_NAME,
+                Name = "Potion of Lightning Resistance",
+                Description = "Adds 50% lightning resistance.",
+                Purgeable = true,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = 120f,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                ReferenceFamilyUID = EP_FAMILY,
+                EffectBehaviour = EditBehaviours.Destroy,
+                Effects = new SL_EffectTransform[]
+               {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effect",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AffectStat { Stat_Tag = "ElectricResistance", AffectQuantity = EP_ELE_RESIST, IsModifier = false },
+                            new SL_PlayVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXBoonBolt }
+                        }
+                    },
+               }
+            };
+            lightningResist.SLPackName = Plugin.PACKID;
+            lightningResist.ApplyTemplate();
+            lightningResist.ApplyIcon();
+
+            SL_StatusEffect frostResist = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Cool",
+                NewStatusID = EP_FROSTRESIST_EFFECT_ID,
+                StatusIdentifier = EP_FROSTRESIST_EFFECT_NAME,
+                Name = "Potion of Frost Resistance",
+                Description = "Adds 50% frost resistance.",
+                Purgeable = true,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = 120f,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                ReferenceFamilyUID = EP_FAMILY,
+                EffectBehaviour = EditBehaviours.Destroy,
+                Effects = new SL_EffectTransform[]
+               {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effect",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AffectStat { Stat_Tag = "FrostResistance", AffectQuantity = EP_ELE_RESIST, IsModifier = false },
+                            new SL_PlayVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXBoonIce }
+                        }
+                    },
+               }
+            };
+            frostResist.SLPackName = Plugin.PACKID;
+            frostResist.ApplyTemplate();
+            frostResist.ApplyIcon();
+
+            SL_StatusEffect fireResist = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Warm",
+                NewStatusID = EP_FIRERESIST_EFFECT_ID,
+                StatusIdentifier = EP_FIRERESIST_EFFECT_NAME,
+                Name = "Potion of Fire Resistance",
+                Description = "Adds 50% fire resistance.",
+                Purgeable = true,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = 120f,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                ReferenceFamilyUID = EP_FAMILY,
+                EffectBehaviour = EditBehaviours.Destroy,
+                Effects = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effect",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AffectStat { Stat_Tag = "FireResistance", AffectQuantity = EP_ELE_RESIST, IsModifier = false },
+                            new SL_PlayVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXBoonFire }
+                        }
+                    },
+                }
+            };
+            fireResist.SLPackName = Plugin.PACKID;
+            fireResist.ApplyTemplate();
+            fireResist.ApplyIcon();
+
             SL_StatusEffect etherealP = new SL_StatusEffect
             {
                 TargetStatusIdentifier = "Mist",

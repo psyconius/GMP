@@ -1,0 +1,11 @@
+{
+    "name": "Gunblade",
+    "author": "gothiska",
+    "version_number": "0.0.1",
+    "website_url": "https://github.com/psyconius/",
+    "description": "Gunblade - Guns with blades on them, duh!",
+    "dependencies": [
+		"sinai-dev-SideLoader-3.4.2",
+        "BepInEx-BepInExPack_Outward-5.4.8"
+    ]
+}

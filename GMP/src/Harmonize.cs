@@ -19,6 +19,8 @@ namespace GMP
         [HarmonyPrefix, HarmonyPatch(typeof(Item), nameof(Item.OnUse))]
         private static void UsePatch(Character _targetChar, Item __instance)
         {
+            if (!_targetChar.IsLocalPlayer)
+                return;
             if (__instance.ItemID == GMPItems.LUCKY_DICE) // Check for Lucky Dice
             {
                 Character character = CharacterManager.Instance.GetFirstLocalCharacter();

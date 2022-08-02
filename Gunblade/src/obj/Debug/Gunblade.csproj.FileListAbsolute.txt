@@ -1,0 +1,8 @@
+D:\Gothiska\Outward\Release\Gunblade.dll
+D:\Gothiska\Outward\Gunblade\obj\Debug\Gunblade.csprojAssemblyReference.cache
+D:\Gothiska\Outward\Gunblade\obj\Debug\Gunblade.csproj.CoreCompileInputs.cache
+D:\Gothiska\Outward\Gunblade\Release\Gunblade.dll
+D:\Gothiska\Outward\Gunblade\src\obj\Debug\Gunblade.csprojAssemblyReference.cache
+D:\Gothiska\Outward\Gunblade\src\obj\Debug\Gunblade.csproj.CoreCompileInputs.cache
+D:\Gothiska\Outward\Gunblade\Release\plugins\Gunblade.dll
+D:\Gothiska\Outward\Gunblade\src\obj\Debug\Gunblade.dll

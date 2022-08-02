@@ -43,13 +43,13 @@ namespace GMP
         public const int S_LES_REGENERATION_EFFECT = -31856;
         public const string S_LES_REGENERATION_EFFECT_NAME = "Scroll_LesserRegeneration";
 
-        //?HERE
         public const int S_LES_REINVIGORATION_EFFECT = -31857;  
         public const string S_LES_REINVIGORATION_EFFECT_NAME = "Scroll_LesserReinvigoration";
 
         public const int S_LES_ACUITY_EFFECT = -31858;
         public const string S_LES_ACUITY_EFFECT_NAME = "Scroll_LesserAcuity";
 
+        //?HERE
         public const int S_MAJ_REGENERATION_EFFECT = -31859;
         public const string S_MAJ_REGENERATION_EFFECT_NAME = "Scroll_MajorRegeneration";
 
@@ -343,11 +343,74 @@ namespace GMP
 
             SL_StatusEffect lesacuityEffect = new SL_StatusEffect
             {
-                TargetStatusIdentifier = "Stamina Recovery 2",
+                TargetStatusIdentifier = "Mana Ratio Recovery 2",
                 NewStatusID = S_LES_ACUITY_EFFECT,
                 StatusIdentifier = S_LES_ACUITY_EFFECT_NAME,
                 Name = "Scroll of Lesser Acuity",
                 Description = "Regenerate 0.25 mana per second.",
+                Purgeable = true,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = 300f,
+                RefreshRate = 1f,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
+                EffectBehaviour = EditBehaviours.NONE,
+            };
+            lesacuityEffect.SLPackName = Plugin.PACKID;
+            lesacuityEffect.ApplyTemplate();
+            lesacuityEffect.ApplyIcon();
+
+            SL_StatusEffect majregenerationEffect = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Health Recovery 5",
+                NewStatusID = S_MAJ_REGENERATION_EFFECT,
+                StatusIdentifier = S_MAJ_REGENERATION_EFFECT_NAME,
+                Name = "Scroll of Major Regeneration",
+                Description = "Regenerate 0.5 health per second.",
+                Purgeable = true,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = 300f,
+                RefreshRate = 1f,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
+                EffectBehaviour = EditBehaviours.NONE,
+            };
+            majregenerationEffect.SLPackName = Plugin.PACKID;
+            majregenerationEffect.ApplyTemplate();
+            majregenerationEffect.ApplyIcon();
+
+            SL_StatusEffect majreinvigorationEffect = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Stamina Recovery 5",
+                NewStatusID = S_MAJ_REINVIGORATION_EFFECT,
+                StatusIdentifier = S_MAJ_REINVIGORATION_EFFECT_NAME,
+                Name = "Scroll of Major Reinvigoration",
+                Description = "Regenerate 0.5 stamina per second.",
+                Purgeable = true,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = 300f,
+                RefreshRate = 1f,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
+                EffectBehaviour = EditBehaviours.NONE,
+            };
+            majreinvigorationEffect.SLPackName = Plugin.PACKID;
+            majreinvigorationEffect.ApplyTemplate();
+            majreinvigorationEffect.ApplyIcon();
+
+            SL_StatusEffect majacuityEffect = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Mana Ratio Recovery 5",
+                NewStatusID = S_MAJ_ACUITY_EFFECT,
+                StatusIdentifier = S_MAJ_ACUITY_EFFECT_NAME,
+                Name = "Scroll of Major Acuity",
+                Description = "Regenerate 0.5 mana per second.",
                 Purgeable = true,
                 DisplayedInHUD = true,
                 IsMalusEffect = false,

@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.IO;
 using SLExtensions;
+using SideLoader_ExtendedEffects;
 using System.Collections.Generic;
 
 namespace GMP
@@ -9,6 +10,7 @@ namespace GMP
     public class GMPEffects
     {
         public const string BANDAGE_REFERENCE_FAMILY_ID = "GMP_Bandages";
+        public const string FIREFLY_REFERENCE_FAMILY_ID = "GMP_Firefly";
 
         public const int BETTER_BANDAGE_EFFECT_ID = -31098;
         public const string BETTER_BANDAGE_EFFECT_NAME = "Better_Bandage";
@@ -40,6 +42,10 @@ namespace GMP
         public const float LUCKY_DICE_EFFECT_DURATION = 600f;
         public const string LUCKY_DICE_REFERENCE_FAMILY_ID = "GMP_LuckyDice";
 
+        public const int FIREFLY_EFFECT_ID = -31870;
+        public const string FIREFLY_EFFECT_NAME = "Firefly_Puree";
+        public const float FIREFLY_EFFECT_DURATION = 600f;
+
         public static void Init()
         {
             SetUpFamily();
@@ -66,6 +72,15 @@ namespace GMP
                 LengthType = StatusEffectFamily.LengthTypes.Short
             };
             luckyDiceFamily.ApplyTemplate();
+
+            SL_StatusEffectFamily fireflyFamily = new SL_StatusEffectFamily
+            {
+                UID = FIREFLY_REFERENCE_FAMILY_ID,
+                StackBehaviour = StatusEffectFamily.StackBehaviors.Override,
+                MaxStackCount = 1,
+                LengthType = StatusEffectFamily.LengthTypes.Short
+            };
+            fireflyFamily.ApplyTemplate();
         }
 
         internal static void SetUpEffects()
@@ -77,6 +92,7 @@ namespace GMP
             SetUpHW();
             SetUpCooling();
             SetUpLuckyDice();
+            SetUpMisc();
         }
 
         public static void SetUpBetterBandage()
@@ -281,8 +297,43 @@ namespace GMP
             luckyDiceEffect.ApplyTemplate();
             luckyDiceEffect.ApplyIcon();
         }
-    }
 
+        private static void SetUpMisc()
+        {
+            SL_StatusEffect firefly = new SL_StatusEffect
+            {
+                //TODO Add actual light effect, fix VFX
+                TargetStatusIdentifier = "Pouch Over Encumbered",
+                NewStatusID = FIREFLY_EFFECT_ID,
+                StatusIdentifier = FIREFLY_EFFECT_NAME,
+                Name = "Reanimated Fireflies",
+                Description = "The essence of fireflies.",
+                Purgeable = true,
+                //RefreshRate = FIREFLY_EFFECT_DURATION,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = FIREFLY_EFFECT_DURATION,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                ReferenceFamilyUID = FIREFLY_REFERENCE_FAMILY_ID,
+                EffectBehaviour = EditBehaviours.Destroy,
+                Effects = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effects",
+                        Effects = new SL_Effect[]
+                        {
+                            new FireFlyEffectTemplate()
+                        }
+                    },
+                }
+            };
+            firefly.SLPackName = Plugin.PACKID;
+            firefly.ApplyTemplate();
+            firefly.ApplyIcon();
+        }
+    }
 }
 
 
