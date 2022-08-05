@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SideLoader;
 using SideLoader_ExtendedEffects;
+using SLExtensions;
 using UnityEngine;
 
 namespace GMP
@@ -314,4 +315,3 @@ namespace GMP
         }
     }
 }
-

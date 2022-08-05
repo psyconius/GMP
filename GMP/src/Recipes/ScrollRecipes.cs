@@ -71,17 +71,17 @@ namespace GMP
 
         private static void CreateScrollRecipesMisc()
         {
-            throw new NotImplementedException();
+            
         }
 
         private static void CreateBlueScrollRecipes()
         {
-            throw new NotImplementedException();
+            
         }
 
         private static void CreateRedScrollRecipes()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

@@ -302,7 +302,6 @@ namespace GMP
         {
             SL_StatusEffect firefly = new SL_StatusEffect
             {
-                //TODO Add actual light effect, fix VFX
                 TargetStatusIdentifier = "Pouch Over Encumbered",
                 NewStatusID = FIREFLY_EFFECT_ID,
                 StatusIdentifier = FIREFLY_EFFECT_NAME,

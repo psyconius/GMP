@@ -81,11 +81,7 @@ namespace GMP
             {
                 Character myChar = CharacterManager.Instance.GetFirstLocalCharacter();
                 myChar.StatusEffectMngr.RemoveShortStatuses();
-
-                if (myChar.GetComponent<Light>().name == "testlight")
-                {
-                    Destroy(myChar.GetComponent<Light>());
-                }
+                myChar.Inventory.SkillKnowledge.ResetAllCooldowns();
             }
 
             if (Input.GetKeyUp(KeyCode.KeypadPeriod))
@@ -141,7 +137,8 @@ namespace GMP
             GMPItems.Init();
 
             // Scrolls
-            Scrolls.Init();
+            BlueScrolls.Init();
+            RedScrolls.Init();
 
             // Volatile Potions
             VolatilePotions.Init();

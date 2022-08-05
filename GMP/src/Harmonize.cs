@@ -3,6 +3,7 @@ using SideLoader;
 using HarmonyLib;
 using UnityEngine;
 using GMP.Network;
+using System;
 
 namespace GMP
 {
@@ -29,11 +30,12 @@ namespace GMP
             {
                 DoDiceRoll(_targetChar);
             }
-            else if (__instance.ItemID == Scrolls.SCROLL_CHAOTIC) // Check for Scroll of Chaotic Blessing
+            else if (__instance.ItemID == BlueScrolls.SCROLL_CHAOTIC) // Check for Scroll of Chaotic Blessing
             {
                 ChaoticBlessingEffect();
             }
         }
+
 
         private static void LuckyDiceEffect(Character _targetChar)
         {

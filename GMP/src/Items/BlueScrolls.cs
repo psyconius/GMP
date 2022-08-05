@@ -5,10 +5,9 @@ using UnityEngine;
 
 namespace GMP
 {
-    public class Scrolls
+    // Blue Scrolls (self targeted, use from inventory) and the generic scroll, paper, ink, and quill.
+    public class BlueScrolls
     {
-        public const int DEF_CAMPFIRE = 5000101;
-
         // Tags
         public const string TAG_QUILL = "Quill";
         public const string TAG_SCROLL = "Scroll";
@@ -62,17 +61,11 @@ namespace GMP
 
         public const float REJREFMEN_HEAL = 50f;
 
-        // Red Ink Scrolls
-        public const int SCROLL_FIREBALL = -31180;
-        public const int SCROLL_FREEZE = -31181;
-        public const int SCROLL_POISONDART = -31182;
-        
-
         public static void Init()
         {
             SetUpTags();
             CreateScrollSupport(); // Base items for crafting
-            CreateScrolls(); // Actual cast scrolls
+            CreateBlueScrolls();
             ScrollRecipes.Init(); // Create Recipes
         }
 
@@ -95,7 +88,7 @@ namespace GMP
 
         private static void CreateScrollSupport()
         {
-            SL_Item quill = new SL_Item()
+            SL_Item quill = new SL_Item() 
             {
                 Target_ItemID = 6400070, //palladium
                 New_ItemID = QUILL,
@@ -117,9 +110,7 @@ namespace GMP
                     Prefab_Name = "quill"
                 },
             };
-            quill.SLPackName = Plugin.PACKID;
-            quill.SubfolderName = "Quill";
-            quill.ApplyTemplate();
+            Utility.ApplyItem(quill, "Quill");
 
             SL_Item blueInk = new SL_Item()
             {
@@ -138,9 +129,7 @@ namespace GMP
                     Prefab_Name = "blueink"
                 },
             };
-            blueInk.SLPackName = Plugin.PACKID;
-            blueInk.SubfolderName = "BlueInk";
-            blueInk.ApplyTemplate();
+            Utility.ApplyItem(blueInk, "BlueInk");
 
             SL_Item redInk = new SL_Item()
             {
@@ -159,9 +148,7 @@ namespace GMP
                     Prefab_Name = "redink"
                 },
             };
-            redInk.SLPackName = Plugin.PACKID;
-            redInk.SubfolderName = "RedInk";
-            redInk.ApplyTemplate();
+            Utility.ApplyItem(redInk, "RedInk");
 
             SL_Item blankScroll = new SL_Item()
             {
@@ -180,13 +167,19 @@ namespace GMP
                     Prefab_Name = "blankscroll"
                 },
             };
-            blankScroll.SLPackName = Plugin.PACKID;
-            blankScroll.SubfolderName = "BlankScroll";
-            blankScroll.ApplyTemplate();
+            Utility.ApplyItem(blankScroll, "BlankScroll");
         }
 
-        private static void CreateScrolls()
+        private static void CreateBlueScrolls()
         {
+            // Set up Item visual for all Blue Scrolls
+            SL_ItemVisual ivBlueScroll = new SL_ItemVisual
+            {
+                Prefab_SLPack = Plugin.PACKID,
+                Prefab_AssetBundle = "scrolls",
+                Prefab_Name = "bluescroll"
+            };
+
             SL_Item warriorScroll = new SL_Item()
             {
                 Target_ItemID = BLANK_SCROLL,
@@ -213,14 +206,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(warriorScroll);
+            Utility.ApplyBlueScroll(warriorScroll);
 
             SL_Item mageScroll = new SL_Item()
             {
@@ -248,14 +236,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(mageScroll);
+            Utility.ApplyBlueScroll(mageScroll);
 
             SL_Item stoutnessScroll = new SL_Item()
             {
@@ -283,14 +266,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(stoutnessScroll);
+            Utility.ApplyBlueScroll(stoutnessScroll);
 
             SL_Item elemresScroll = new SL_Item()
             {
@@ -318,14 +296,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(elemresScroll);
+            Utility.ApplyBlueScroll(elemresScroll);
 
             SL_Item cheetahScroll = new SL_Item()
             {
@@ -352,14 +325,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(cheetahScroll);
+            Utility.ApplyBlueScroll(cheetahScroll);
 
             SL_Item shimmerScroll = new SL_Item()
             {
@@ -386,14 +354,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(shimmerScroll);
+            Utility.ApplyBlueScroll(shimmerScroll);
 
             SL_Item lesregScroll = new SL_Item()
             {
@@ -421,14 +384,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(lesregScroll);
+            Utility.ApplyBlueScroll(lesregScroll);
 
             SL_Item lesreiScroll = new SL_Item()
             {
@@ -456,14 +414,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(lesreiScroll);
+            Utility.ApplyBlueScroll(lesreiScroll);
 
             SL_Item lesacuScroll = new SL_Item()
             {
@@ -491,14 +444,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(lesacuScroll);
+            Utility.ApplyBlueScroll(lesacuScroll);
 
             SL_Item majregScroll = new SL_Item()
             {
@@ -526,14 +474,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(majregScroll);
+            Utility.ApplyBlueScroll(majregScroll);
 
             SL_Item majreiScroll = new SL_Item()
             {
@@ -561,14 +504,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(majreiScroll);
+            Utility.ApplyBlueScroll(majreiScroll);
 
             SL_Item majacuScroll = new SL_Item()
             {
@@ -596,14 +534,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(majacuScroll);
+            Utility.ApplyBlueScroll(majacuScroll);
 
             SL_Item majrejScroll = new SL_Item()
             {
@@ -632,14 +565,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(majrejScroll);
+            Utility.ApplyBlueScroll(majrejScroll);
 
             SL_Item majrefScroll = new SL_Item()
             {
@@ -668,14 +596,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(majrefScroll);
+            Utility.ApplyBlueScroll(majrefScroll);
 
             SL_Item majmrScroll = new SL_Item()
             {
@@ -704,14 +627,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(majmrScroll);
+            Utility.ApplyBlueScroll(majmrScroll);
 
             SL_Item majEthRes = new SL_Item()
             {
@@ -738,14 +656,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(majEthRes);
+            Utility.ApplyBlueScroll(majEthRes);
 
             SL_Item majDecRes = new SL_Item()
             {
@@ -772,14 +685,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(majDecRes);
+            Utility.ApplyBlueScroll(majDecRes);
 
             SL_Item majLigRes = new SL_Item()
             {
@@ -806,14 +714,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(majLigRes);
+            Utility.ApplyBlueScroll(majLigRes);
 
             SL_Item majFroRes = new SL_Item()
             {
@@ -840,14 +743,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(majFroRes);
+            Utility.ApplyBlueScroll(majFroRes);
 
             SL_Item majFireRes = new SL_Item()
             {
@@ -874,14 +772,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(majFireRes);
+            Utility.ApplyBlueScroll(majFireRes);
 
             SL_Item fireflyScroll = new SL_Item()
             {
@@ -914,14 +807,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(fireflyScroll);
+            Utility.ApplyBlueScroll(fireflyScroll);
 
             SL_Item chaoticScroll = new SL_Item()
             {
@@ -948,14 +836,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(chaoticScroll);
+            Utility.ApplyBlueScroll(chaoticScroll);
 
             SL_Item summonScroll = new SL_Item()
             {
@@ -986,22 +869,9 @@ namespace GMP
                         }
                     }
                 },
-                ItemVisuals = new SL_ItemVisual
-                {
-                    Prefab_SLPack = Plugin.PACKID,
-                    Prefab_AssetBundle = "scrolls",
-                    Prefab_Name = "bluescroll"
-                },
+                ItemVisuals = ivBlueScroll
             };
-            ApplyBlueScroll(summonScroll);
-        }
-
-        private static void ApplyBlueScroll(SL_Item scrollTemplate)
-        {
-            // Sets SL template for blue scrolls.
-            scrollTemplate.SLPackName = Plugin.PACKID;
-            scrollTemplate.SubfolderName = "BlueScroll";
-            scrollTemplate.ApplyTemplate();
+            Utility.ApplyBlueScroll(summonScroll);
         }
     }
 }

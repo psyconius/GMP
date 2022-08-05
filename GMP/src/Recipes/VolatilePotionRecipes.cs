@@ -8,7 +8,18 @@ namespace GMP
     {
         public static void Init()
         {
+            CreateEPRecipes();
+            CreateVPRecipes();
+        }
 
+        private static void CreateEPRecipes()
+        {
+            
+        }
+
+        private static void CreateVPRecipes()
+        {
+            
         }
     }
 }

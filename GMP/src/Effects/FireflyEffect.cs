@@ -32,8 +32,8 @@ namespace GMP
                 Light light = _affectedCharacter.gameObject.AddComponent<Light>();
                 light.type = LightType.Point;
                 light.name = "firefly";
-                light.intensity = 4;
-                light.range = 35;
+                light.intensity = 1.75f;
+                light.range = 30;
                 light.color = Color.yellow;
                 isActivated = true;
             }

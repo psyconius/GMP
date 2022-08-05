@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using SideLoader;
 using SLExtensions;
+using UnityEngine;
 
 namespace GMP
 {
     public class ScrollEffects
     {
-        private const string BLUE_SCROLL_FAMILY = "GMP_BlueScrolls";
+        public const string MISC_SCROLLEFFECT_FAMILY = "GMP_MiscScrolls";
+        public const string BLUE_SCROLL_FAMILY = "GMP_BlueScrolls";
         private const int BLUE_SCROLL_MAX_STACK = 3;
+        public const string RED_SCROLL_FAMILY = "GMP_RedScrolls";
 
         public const int S_WARRIOR_EFFECT = -31850;
         public const string S_WARRIOR_EFFECT_NAME = "Scroll_Warrior";
@@ -58,9 +61,6 @@ namespace GMP
         public const int S_MAJ_ACUITY_EFFECT = -31861;
         public const string S_MAJ_ACUITY_EFFECT_NAME = "Scroll_MajorAcuity";
 
-
-
-
         public static void Init()
         {
             SetUpFamilies();
@@ -69,6 +69,15 @@ namespace GMP
 
         private static void SetUpFamilies()
         {
+            SL_StatusEffectFamily miscScrollEfect = new SL_StatusEffectFamily
+            {
+                UID = MISC_SCROLLEFFECT_FAMILY,
+                StackBehaviour = StatusEffectFamily.StackBehaviors.Override,
+                MaxStackCount = 1,
+                LengthType = StatusEffectFamily.LengthTypes.Short
+            };
+            miscScrollEfect.ApplyTemplate();
+
             SL_StatusEffectFamily blueScrollFamily = new SL_StatusEffectFamily
             {
                 UID = BLUE_SCROLL_FAMILY,
@@ -77,7 +86,18 @@ namespace GMP
                 LengthType = StatusEffectFamily.LengthTypes.Short
             };
             blueScrollFamily.ApplyTemplate();
+
+            SL_StatusEffectFamily redScrollFamily = new SL_StatusEffectFamily
+            {
+                UID = RED_SCROLL_FAMILY,
+                StackBehaviour = StatusEffectFamily.StackBehaviors.IndependantUnique,
+                MaxStackCount = 1,
+                LengthType = StatusEffectFamily.LengthTypes.Short
+            };
+            redScrollFamily.ApplyTemplate();
         }
+
+        
 
         private static void SetUpBlueScrolls()
         {
@@ -110,9 +130,7 @@ namespace GMP
                     }
                 }
             };
-            warriorEffect.SLPackName = Plugin.PACKID;
-            warriorEffect.ApplyTemplate();
-            warriorEffect.ApplyIcon();
+            ApplyEffect(warriorEffect, true);
 
             SL_StatusEffect mageEffect = new SL_StatusEffect
             {
@@ -148,9 +166,7 @@ namespace GMP
                     },
                 }
             };
-            mageEffect.SLPackName = Plugin.PACKID;
-            mageEffect.ApplyTemplate();
-            mageEffect.ApplyIcon();
+            ApplyEffect(mageEffect, true);
 
             SL_StatusEffect stoutEffect = new SL_StatusEffect
             {
@@ -168,7 +184,7 @@ namespace GMP
                 ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
                 EffectBehaviour = EditBehaviours.Destroy,
                 Effects = new SL_EffectTransform[]
-               {
+                {
                     new SL_EffectTransform
                     {
                         TransformName = "Effect",
@@ -178,11 +194,9 @@ namespace GMP
                             new SL_AffectStat { Stat_Tag = "PhysicalResistance", AffectQuantity = S_STOUTNESS_PHYRES, IsModifier = false },
                         }
                     },
-               }
+                }
             };
-            stoutEffect.SLPackName = Plugin.PACKID;
-            stoutEffect.ApplyTemplate();
-            stoutEffect.ApplyIcon();
+            ApplyEffect(stoutEffect, true);
 
             SL_StatusEffect elemresEffect = new SL_StatusEffect
             {
@@ -200,7 +214,7 @@ namespace GMP
                 ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
                 EffectBehaviour = EditBehaviours.Destroy,
                 Effects = new SL_EffectTransform[]
-               {
+                {
                     new SL_EffectTransform
                     {
                         TransformName = "Effect",
@@ -215,11 +229,9 @@ namespace GMP
                             new SL_AffectStat { Stat_Tag = "EnvHeatProtection", AffectQuantity = S_ELEMRES_ENVRES, }
                         }
                     },
-               }
+                }
             };
-            elemresEffect.SLPackName = Plugin.PACKID;
-            elemresEffect.ApplyTemplate();
-            elemresEffect.ApplyIcon();
+            ApplyEffect(elemresEffect, true);
 
             SL_StatusEffect cheetahEffect = new SL_StatusEffect
             {
@@ -237,21 +249,19 @@ namespace GMP
                 ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
                 EffectBehaviour = EditBehaviours.Destroy,
                 Effects = new SL_EffectTransform[]
-               {
+                {
                     new SL_EffectTransform
                     {
                         TransformName = "Effect",
                         Effects = new SL_Effect[]
                         {
                             new SL_PlayVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.VFXLeapAttack },
-                            new SL_AffectStat { Stat_Tag = "MovementSpeed", AffectQuantity = S_CHEETAH_SPEED, IsModifier = true } 
+                            new SL_AffectStat { Stat_Tag = "MovementSpeed", AffectQuantity = S_CHEETAH_SPEED, IsModifier = true }
                         }
                     },
-               }
+                }
             };
-            cheetahEffect.SLPackName = Plugin.PACKID;
-            cheetahEffect.ApplyTemplate();
-            cheetahEffect.ApplyIcon();
+            ApplyEffect(cheetahEffect, true);
 
             SL_StatusEffect shimmerEffect = new SL_StatusEffect
             {
@@ -269,7 +279,7 @@ namespace GMP
                 ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
                 EffectBehaviour = EditBehaviours.Destroy,
                 Effects = new SL_EffectTransform[]
-               {
+                {
                     new SL_EffectTransform
                     {
                         TransformName = "Effect",
@@ -284,11 +294,9 @@ namespace GMP
                             new SL_AffectStat { Stat_Tag = "Barrier", AffectQuantity = S_SHIMMER_BAR, IsModifier = false }
                         }
                     },
-               }
+                }
             };
-            shimmerEffect.SLPackName = Plugin.PACKID;
-            shimmerEffect.ApplyTemplate();
-            shimmerEffect.ApplyIcon();
+            ApplyEffect(shimmerEffect, true);
 
             SL_StatusEffect lesregenerationEffect = new SL_StatusEffect
             {
@@ -307,9 +315,7 @@ namespace GMP
                 ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
                 EffectBehaviour = EditBehaviours.NONE,
             };
-            lesregenerationEffect.SLPackName = Plugin.PACKID;
-            lesregenerationEffect.ApplyTemplate();
-            lesregenerationEffect.ApplyIcon();
+            ApplyEffect(lesregenerationEffect, true);
 
             SL_StatusEffect lesreinvigorationEffect = new SL_StatusEffect
             {
@@ -328,9 +334,7 @@ namespace GMP
                 ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
                 EffectBehaviour = EditBehaviours.NONE,
             };
-            lesreinvigorationEffect.SLPackName = Plugin.PACKID;
-            lesreinvigorationEffect.ApplyTemplate();
-            lesreinvigorationEffect.ApplyIcon();
+            ApplyEffect(lesreinvigorationEffect, true);
 
             SL_StatusEffect lesacuityEffect = new SL_StatusEffect
             {
@@ -349,9 +353,7 @@ namespace GMP
                 ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
                 EffectBehaviour = EditBehaviours.NONE,
             };
-            lesacuityEffect.SLPackName = Plugin.PACKID;
-            lesacuityEffect.ApplyTemplate();
-            lesacuityEffect.ApplyIcon();
+            ApplyEffect(lesacuityEffect, true);
 
             SL_StatusEffect majregenerationEffect = new SL_StatusEffect
             {
@@ -370,9 +372,7 @@ namespace GMP
                 ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
                 EffectBehaviour = EditBehaviours.NONE,
             };
-            majregenerationEffect.SLPackName = Plugin.PACKID;
-            majregenerationEffect.ApplyTemplate();
-            majregenerationEffect.ApplyIcon();
+            ApplyEffect(majregenerationEffect, true);
 
             SL_StatusEffect majreinvigorationEffect = new SL_StatusEffect
             {
@@ -391,9 +391,7 @@ namespace GMP
                 ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
                 EffectBehaviour = EditBehaviours.NONE,
             };
-            majreinvigorationEffect.SLPackName = Plugin.PACKID;
-            majreinvigorationEffect.ApplyTemplate();
-            majreinvigorationEffect.ApplyIcon();
+            ApplyEffect(majreinvigorationEffect, true);
 
             SL_StatusEffect majacuityEffect = new SL_StatusEffect
             {
@@ -412,9 +410,23 @@ namespace GMP
                 ReferenceFamilyUID = BLUE_SCROLL_FAMILY,
                 EffectBehaviour = EditBehaviours.NONE,
             };
-            majacuityEffect.SLPackName = Plugin.PACKID;
-            majacuityEffect.ApplyTemplate();
-            majacuityEffect.ApplyIcon();
+            ApplyEffect(majacuityEffect, true);
+        }
+
+
+        //SL Template Apply
+        private static void ApplyEffect(SL_StatusEffect effectName, bool icon)
+        {
+            effectName.SLPackName = Plugin.PACKID;
+            effectName.ApplyTemplate();
+            if (icon == true) { effectName.ApplyIcon(); }
+        }
+        private static void ApplyEffect(SL_AttackSkill skillName, string subFolder, bool icon)
+        {
+            skillName.SLPackName = Plugin.PACKID;
+            skillName.SubfolderName = subFolder;
+            skillName.ApplyTemplate();
+            if (icon == true) { skillName.ApplyIcon(); }
         }
     }
 }
