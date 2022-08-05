@@ -21,17 +21,18 @@ namespace GMP
 
         public const int HAMPERED_OVERRIDE_EFFECT = -31873;
         public const string HAMPERED_OVERRIDE_EFFECT_NAME = "Shard_Hampered";
-        private const float HAMPERED_OVERRIDE_EFFECT_DUR = 3f;
+        private const float HAMPERED_OVERRIDE_EFFECT_DUR = 6f;
 
         // Red Ink Scrolls
         public const int SCROLL_FIREBALL = -31180;
         public const int SCROLL_FREEZINGSHARD = -31181;
         public const int SCROLL_POISONDART = -31182;
         public const int SCROLL_LIGHTNINGBOLT = -31183;
-        public const int SCROLL_GHOSTLYBULLET = -31184;
+        public const int SCROLL_GHOSTLYBULLETS = -31184;
 
-        public const int S_FIREBALL_EFFECT = -31800;
-        public const string S_FIREBALL_EFFECT_NAME = "Fireball";
+        // Red Scroll Skills and Parameters
+        public const int S_FIREBALL_SKILL = -31800;
+        public const string S_FIREBALL_SKILL_NAME = "Fireball";
         public const string S_FIREBALL_FOLDERNAME = "Scroll_FireballSkill";
         private const float S_FIREBALL_RANGE = 30f;
         private const float S_FIREBALL_FORCE = 25f;
@@ -40,8 +41,8 @@ namespace GMP
         private const float S_FIREBALL_KNOCK = 50f;
         private const float S_FIREBALL_CD = 10f;
 
-        public const int S_FREEZINGSHARD_EFFECT = -31801;
-        public const string S_FREEZINGSHARD_EFFECT_NAME = "Freezing Shard";
+        public const int S_FREEZINGSHARD_SKILL = -31801;
+        public const string S_FREEZINGSHARD_SKILL_NAME = "Freezing Shard";
         public const string S_FREEZINGSHARD_FOLDERNAME = "Scroll_FreezingShardSkill";
         private const float S_FREEZINGSHARD_RANGE = 25f;
         private const float S_FREEZINGSHARD_FORCE = 20f;
@@ -49,12 +50,12 @@ namespace GMP
         private const float S_FREEZINGSHARD_KNOCK = 9999f;
         private const float S_FREEZINGSHARD_CD = 30f;
 
-        public const int S_POISONDART_EFFECT = -31802;
-        public const string S_POISONDART_EFFECT_NAME = "Poison Dart";
+        public const int S_POISONDART_SKILL = -31802;
+        public const string S_POISONDART_SKILL_NAME = "Poison Dart";
         public const string S_POISONDART_FOLDERNAME = "Scroll_PoisonDartSkill";
 
-        public const int S_LIGHTNINGBOLT_EFFECT = -31803;
-        public const string S_LIGHTNINGBOLT_EFFECT_NAME = "Lightning Bolt";
+        public const int S_LIGHTNINGBOLT_SKILL = -31803;
+        public const string S_LIGHTNINGBOLT_SKILL_NAME = "Lightning Bolt";
         public const string S_LIGHTNINGBOLT_FOLDERNAME = "Scroll_LightningBoltSkill";
         private const float S_LIGHTNINGBOLT_RANGE = 35f;
         private const float S_LIGHTNINGBOLT_FORCE = 50f;
@@ -63,8 +64,8 @@ namespace GMP
         private const float S_LIGHTNINGBOLT_KNOCK = 25f;
         private const float S_LIGHTNINGBOLT_CD = 15f;
 
-        public const int S_GHOSTLYBULLET_EFFECT = -31804;
-        public const string S_GHOSTLYBULLETS_EFFECT_NAME = "Ghostly Bullets";
+        public const int S_GHOSTLYBULLET_SKILL = -31804;
+        public const string S_GHOSTLYBULLETS_SKILL_NAME = "Ghostly Bullets";
         public const string S_GHOSTLYBULLETS_FOLDERNAME = "Scroll_GhostlyBulletsSkill";
 
         public static void Init()
@@ -82,37 +83,87 @@ namespace GMP
                 NewStatusID = CHILL_OVERRIDE_EFFECT,
                 StatusIdentifier = CHILL_OVERRIDE_EFFECT_NAME,
                 Name = "Shard Slow",
-                Description = "Placeholder for Freeze Stun.",
+                Description = "Placeholder for Shard Chill.",
                 Purgeable = true,
                 DisplayedInHUD = true,
-                IsMalusEffect = true,
+                IsMalusEffect = false,
                 Lifespan = CHILL_OVERRIDE_EFFECT_DUR,
-                RefreshRate = 1f,
                 AmplifiedStatusIdentifier = string.Empty,
                 FamilyMode = StatusEffect.FamilyModes.Reference,
                 ReferenceFamilyUID = ScrollEffects.RED_SCROLL_FAMILY,
-                EffectBehaviour = EditBehaviours.NONE,
+                EffectBehaviour = EditBehaviours.Destroy,
+                Effects = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effects",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AffectStat { Stat_Tag = "FrostResistance", AffectQuantity = -25f, IsModifier = false }
+                        }
+                    }
+                }
             };
             Utility.ApplyEffect(shardchill, true);
 
             SL_StatusEffect shardcripple = new SL_StatusEffect
             {
-                TargetStatusIdentifier = "Pouch Over Encumbered",
+                TargetStatusIdentifier = "Cripple",
                 NewStatusID = CRIPPLE_OVERRIDE_EFFECT,
                 StatusIdentifier = CRIPPLE_OVERRIDE_EFFECT_NAME,
                 Name = "Shard Slow",
-                Description = "Placeholder for Freeze Stun.",
+                Description = "Placeholder for Shard Crippled.",
                 Purgeable = true,
                 DisplayedInHUD = true,
-                IsMalusEffect = true,
+                IsMalusEffect = false,
                 Lifespan = CRIPPLE_OVERRIDE_EFFECT_DUR,
-                RefreshRate = 1f,
                 AmplifiedStatusIdentifier = string.Empty,
                 FamilyMode = StatusEffect.FamilyModes.Reference,
                 ReferenceFamilyUID = ScrollEffects.RED_SCROLL_FAMILY,
-                EffectBehaviour = EditBehaviours.NONE,
+                EffectBehaviour = EditBehaviours.Destroy,
+                Effects = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effects",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AffectStat { Stat_Tag = "MovementSpeed", AffectQuantity = -50f, IsModifier = true }
+                        }
+                    }
+                }
             };
             Utility.ApplyEffect(shardcripple, true);
+
+            SL_StatusEffect shardhampered = new SL_StatusEffect
+            {
+                TargetStatusIdentifier = "Hampered",
+                NewStatusID = HAMPERED_OVERRIDE_EFFECT,
+                StatusIdentifier = HAMPERED_OVERRIDE_EFFECT_NAME,
+                Name = "Frozen in Place",
+                Description = "Placeholder for Shard Hampered.",
+                Purgeable = true,
+                DisplayedInHUD = true,
+                IsMalusEffect = false,
+                Lifespan = HAMPERED_OVERRIDE_EFFECT_DUR,
+                AmplifiedStatusIdentifier = string.Empty,
+                FamilyMode = StatusEffect.FamilyModes.Reference,
+                ReferenceFamilyUID = ScrollEffects.RED_SCROLL_FAMILY,
+                EffectBehaviour = EditBehaviours.OverrideEffects,
+                Effects = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Effects",
+                        Effects = new SL_Effect[]
+                        {
+                            new SL_AffectStat { Stat_Tag = "MovementSpeed", AffectQuantity = -100f, IsModifier = true },
+                            new SL_PlayVFX { VFXPrefab = SL_PlayVFX.VFXPrefabs.TormentBlast_NormalChill_VfxChill }
+                        }
+                    }
+                }
+            };
+            Utility.ApplyEffect(shardhampered, true);
         }
 
         private static void CreateRedScrolls()
@@ -139,7 +190,7 @@ namespace GMP
                 EffectBehaviour = EditBehaviours.Destroy,
                 ItemVisuals = ivRedScroll
             };
-            Utility.ApplyRedScroll(fireballScroll);
+            Utility.ApplyItem(fireballScroll, "Scroll_Fireball");
 
             SL_Item freezingshardScroll = new SL_Item()
             {
@@ -153,7 +204,24 @@ namespace GMP
                 EffectBehaviour = EditBehaviours.Destroy,
                 ItemVisuals = ivRedScroll
             };
-            Utility.ApplyRedScroll(freezingshardScroll, "Scroll_FreezingShard");
+            Utility.ApplyItem(freezingshardScroll, "Scroll_FreezingShard");
+
+            SL_Item poisondartScorll = new SL_Item()
+            {
+                Target_ItemID = BlueScrolls.BLANK_SCROLL,
+                New_ItemID = SCROLL_POISONDART,
+                Name = "Scroll of Poison Dart",
+                Description = "Hurls a poison dart towards enemies that damages lightly and applies extreme poison. Requires the Poison Dart skill to cast.",
+                StatsHolder = new SL_ItemStats { BaseValue = BlueScrolls.SCROLL_T1_VAL, RawWeight = BlueScrolls.SCROLL_WEIGHT },
+                IsUsable = false,
+                CastType = Character.SpellCastType.ElementalProjectile,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 1,
+                Tags = new string[] { "Item", BlueScrolls.TAG_SCROLL, BlueScrolls.TAG_RED_SCROLL },
+                EffectBehaviour = EditBehaviours.Destroy,
+                ItemVisuals = ivRedScroll
+            };
+            Utility.ApplyItem(poisondartScorll, "Scroll_PoisonDart");
 
             SL_Item lightningboltScroll = new SL_Item()
             {
@@ -170,103 +238,33 @@ namespace GMP
                 EffectBehaviour = EditBehaviours.Destroy,
                 ItemVisuals = ivRedScroll
             };
-            Utility.ApplyRedScroll(lightningboltScroll);
+            Utility.ApplyItem(lightningboltScroll, "Scroll_LightningBolt");
+
+            SL_Item ghostlybulletsScroll = new SL_Item()
+            {
+                Target_ItemID = BlueScrolls.BLANK_SCROLL,
+                New_ItemID = SCROLL_GHOSTLYBULLETS,
+                Name = "Scroll of Ghostly Bullets",
+                Description = "Releases several slow moving ethereal projectiles that track enemies. Requires the Ghostly Bullets skill to cast.",
+                StatsHolder = new SL_ItemStats { BaseValue = BlueScrolls.SCROLL_T1_VAL, RawWeight = BlueScrolls.SCROLL_WEIGHT },
+                IsUsable = false,
+                CastType = Character.SpellCastType.ElementalProjectile,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastSheatheRequired = 1,
+                Tags = new string[] { "Item", BlueScrolls.TAG_SCROLL, BlueScrolls.TAG_RED_SCROLL },
+                EffectBehaviour = EditBehaviours.Destroy,
+                ItemVisuals = ivRedScroll
+            };
+            Utility.ApplyItem(ghostlybulletsScroll, "Scroll_GhostlyBullets");
         }
 
         private static void SetUpRedScrolls()
         {
-            SL_StatusEffect fireballEffect = new SL_StatusEffect
-            {
-                TargetStatusIdentifier = "Pouch Over Encumbered",
-                NewStatusID = S_FIREBALL_EFFECT,
-                StatusIdentifier = S_FIREBALL_EFFECT_NAME,
-                Name = "Fireball",
-                Description = "Fireball Placeholder.",
-                Purgeable = true,
-                Lifespan = 0.001f,
-                DisplayedInHUD = false,
-                IsMalusEffect = false,
-                AmplifiedStatusIdentifier = string.Empty,
-                FamilyMode = StatusEffect.FamilyModes.Reference,
-                ReferenceFamilyUID = ScrollEffects.RED_SCROLL_FAMILY,
-                EffectBehaviour = EditBehaviours.Destroy,
-                Effects = new SL_EffectTransform[]
-                {
-                    new SL_EffectTransform
-                    {
-                        TransformName = "NormalFire",
-                        Effects = new SL_Effect[]
-                        {
-                            new SL_ShootProjectile
-                            {
-                                Delay = 0,
-                                SyncType = Effect.SyncTypes.OwnerSync,
-                                CastPosition = Shooter.CastPositionType.Local,
-                                LocalPositionAdd = new Vector3(0, 0.5f, 0),
-                                NoAim = false,
-                                TargetType = Shooter.TargetTypes.Enemies,
-                                TransformName = "ShooterTransform",
-                                BaseProjectile = SL_ShootProjectile.ProjectilePrefabs.ElementalProjectileFire,
-                                InstantiatedAmount = 1,
-                                Lifespan = 3,
-                                LateShootTime = 0.1f,
-                                Unblockable = false,
-                                EffectsOnlyIfHitCharacter = false,
-                                EndMode = Projectile.EndLifeMode.Normal,
-                                DisableOnHit = false,
-                                IgnoreShooterCollision = true,
-                                TargetingMode = ShootProjectile.TargetMode.OwnerTarget,
-                                TargetCountPerProjectile = 1,
-                                TargetRange = 30, //?original 25
-                                AutoTargetMaxAngle = 360,
-                                AutoTarget = false,
-                                AutoTargetRange = 10, //? original 5
-                                ProjectileForce = S_FIREBALL_FORCE,
-                                AddDirection = new Vector3(0, 0, 0),
-                                AddRotationForce = new Vector3(0, 0, 0),
-                                YMagnitudeAffect = 0,
-                                YMagnitudeForce = 0,
-                                DefenseLength = 3,
-                                DefenseRange = 3,
-                                ImpactSoundMaterial = EquipmentSoundMaterials.Metal_Sharp,
-                                LightIntensityFade = new Vector2(10f, 2f),
-                                PointOffset = new Vector3(0, 0, 0),
-                                TrailEnabled = false,
-                                TrailTime = 0.075f,
-                                EffectBehaviour = EditBehaviours.Destroy,
-                                ProjectileEffects = new SL_EffectTransform[]
-                                {
-                                    new SL_EffectTransform
-                                    {
-                                        TransformName = "HitEffects",
-                                        Effects = new SL_Effect[]
-                                        {
-                                            new SL_PunctualDamage
-                                            {
-                                                Delay = 0,
-                                                //SyncType = Effect.SyncTypes.Everyone,
-                                                Damage = new List<SL_Damage> { new SL_Damage { Damage = S_FIREBALL_DAM, Type = DamageType.Types.Fire } },
-                                                Knockback = S_FIREBALL_KNOCK,
-                                                HitInventory = true,
-                                                IgnoreHalfResistances = false
-                                            },
-                                            new SL_AddStatusEffect { StatusEffect = "Burning", ChanceToContract = 100 },
-                                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_ElemantalProjectileFire_Shot } }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-            };
-            Utility.ApplyEffect(fireballEffect, true);
-
             SL_StatusEffect lightningboltScroll = new SL_StatusEffect
             {
                 TargetStatusIdentifier = "Pouch Over Encumbered",
-                NewStatusID = S_LIGHTNINGBOLT_EFFECT,
-                StatusIdentifier = S_LIGHTNINGBOLT_EFFECT_NAME,
+                NewStatusID = S_LIGHTNINGBOLT_SKILL,
+                StatusIdentifier = S_LIGHTNINGBOLT_SKILL_NAME,
                 Name = "Lightning Bolt",
                 Description = "Lightning Bolt Placeholder.",
                 Purgeable = true,
@@ -328,19 +326,7 @@ namespace GMP
                                         TransformName = "HitEffects",
                                         Effects = new SL_Effect[]
                                         {
-                                            new SL_PunctualDamageAoE
-                                            {
-                                                Delay = 0,
-                                                Radius = S_LIGHTNINGBOLT_RAD,
-                                                TargetType = Shooter.TargetTypes.Enemies,
-                                                IgnoreShooter = true,
-                                                //SyncType = Effect.SyncTypes.Everyone,
-                                                Damage = new List<SL_Damage> { new SL_Damage { Damage = S_LIGHTNINGBOLT_DAM, Type = DamageType.Types.Electric } },
-                                                Knockback = S_LIGHTNINGBOLT_KNOCK,
-                                                HitInventory = true,
-                                                IgnoreHalfResistances = false
-                                            },
-                                            new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_ElemantalProjectileElectric_Shot } }
+                                           
                                         }
                                     }
                                 }
@@ -360,17 +346,16 @@ namespace GMP
                                                    Weapon.WeaponType.Axe_2H, Weapon.WeaponType.Mace_2H, Weapon.WeaponType.Spear_2H, Weapon.WeaponType.Shield,
                                                    Weapon.WeaponType.Arrow, Weapon.WeaponType.Bow };
 
-            // Set Ice Projectiles
+            // Set Projectiles
             SL_ShootProjectile spIceProjectile = IceProjectile();
-
-            SL_Skill.SkillItemReq sirFreezingScroll = new SL_Skill.SkillItemReq { ItemID = SCROLL_FREEZINGSHARD, Quantity = 1, Consume = true };
+            SL_ShootProjectile spFireProjectile = FireProjectile();
 
             SL_AttackSkill freezingShard = new SL_AttackSkill
             {
                 Target_ItemID = 8200310,
-                New_ItemID = S_FREEZINGSHARD_EFFECT,
-                Name = S_FREEZINGSHARD_EFFECT_NAME,
-                Description = $"Launch a frozen shard at enemies. Does modest damage but knocks enemies back, cripples their movement, and applies chill effects. \r\n*Requires a Scroll of Freezing Shard.",
+                New_ItemID = S_FREEZINGSHARD_SKILL,
+                Name = S_FREEZINGSHARD_SKILL_NAME,
+                Description = $"Launch a frozen shard at enemies. Does modest damage but knocks enemies back, temporarily freezes them in place, cripples their movement, and applies chill effects. \r\n*Requires a Scroll of Freezing Shard.",
                 Cooldown = S_FREEZINGSHARD_CD,
                 RequireImbue = false,
                 QtyRemovedOnUse = 1,
@@ -385,7 +370,7 @@ namespace GMP
                 ManaCost = 0,
                 StaminaCost = 0,
                 HealthCost = 0,
-                RequiredItems = new SL_Skill.SkillItemReq[] { sirFreezingScroll },
+                RequiredItems = new SL_Skill.SkillItemReq[] { new SL_Skill.SkillItemReq { ItemID = SCROLL_FREEZINGSHARD, Quantity = 1, Consume = true } },
                 EffectBehaviour = EditBehaviours.Destroy,
                 EffectTransforms = new SL_EffectTransform[]
                 {
@@ -400,16 +385,110 @@ namespace GMP
                 }
             };
             Utility.ApplyEffect(freezingShard, S_FREEZINGSHARD_FOLDERNAME, true);
-            //var fsOW = ResourcesPrefabManager.Instance.GetItemPrefab(S_FREEZINGSHARD_EFFECT_NAME) as AttackSkill;
-            //fsOW.RequiredItems = new Skill.ItemRequired[]
-            //{
-            //    new Skill.ItemRequired { Item = ResourcesPrefabManager.Instance.GetItemPrefab(Scrolls.SCROLL_FREEZINGSHARD), Consume = true, Quantity = 1 }
-            //};
+
+            SL_AttackSkill fireball = new SL_AttackSkill
+            {
+                Target_ItemID = 8200310,
+                New_ItemID = S_FIREBALL_SKILL,
+                Name = S_FIREBALL_SKILL_NAME,
+                Description = $"Launch a fireball at enemies. Does high damage, inflicts burning, and lowers fire resistance. \r\n*Requires a Scroll of Fireball.",
+                Cooldown = S_FREEZINGSHARD_CD,
+                RequireImbue = false,
+                QtyRemovedOnUse = 1,
+                CastType = Character.SpellCastType.ElementalProjectile,
+                CastModifier = Character.SpellCastModifier.Immobilized,
+                CastLocomotionEnabled = false,
+                MobileCastMovementMult = -1,
+                CastSheatheRequired = 1,
+                RequiredWeaponTypes = allWeaponTypes,
+                DurabilityCost = 0,
+                DurabilityCostPercent = 0,
+                ManaCost = 0,
+                StaminaCost = 0,
+                HealthCost = 0,
+                RequiredItems = new SL_Skill.SkillItemReq[] { new SL_Skill.SkillItemReq { ItemID = SCROLL_FIREBALL, Quantity = 1, Consume = true } },
+                EffectBehaviour = EditBehaviours.Destroy,
+                EffectTransforms = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                        TransformName = "Normal",
+                        Effects = new SL_Effect[]
+                        {
+                            spFireProjectile,
+                        }
+                    }
+                }
+            };
+            Utility.ApplyEffect(fireball, S_FIREBALL_FOLDERNAME, true);
+        }
+
+        private static SL_ShootProjectile FireProjectile()
+        {
+            SL_ShootProjectile fireProjectile = new SL_ShootProjectile
+            {
+                Delay = 0,
+                SyncType = Effect.SyncTypes.OwnerSync,
+                CastPosition = Shooter.CastPositionType.Local,
+                LocalPositionAdd = new Vector3(0, 0.5f, 0),
+                NoAim = false,
+                TargetType = Shooter.TargetTypes.Enemies,
+                TransformName = "ShooterTransform",
+                BaseProjectile = SL_ShootProjectile.ProjectilePrefabs.ElementalProjectileFire,
+                InstantiatedAmount = 1,
+                Lifespan = 3,
+                LateShootTime = 0.1f,
+                Unblockable = false,
+                EffectsOnlyIfHitCharacter = false,
+                EndMode = Projectile.EndLifeMode.Normal,
+                DisableOnHit = false,
+                IgnoreShooterCollision = true,
+                TargetingMode = ShootProjectile.TargetMode.OwnerTarget,
+                TargetCountPerProjectile = 1,
+                TargetRange = S_FIREBALL_RANGE,
+                AutoTargetMaxAngle = 360,
+                AutoTarget = false,
+                AutoTargetRange = 10,
+                ProjectileForce = S_FIREBALL_FORCE,
+                AddDirection = new Vector3(0, 0, 0),
+                AddRotationForce = new Vector3(0, 0, 0),
+                YMagnitudeAffect = 0,
+                YMagnitudeForce = 0,
+                DefenseLength = 3,
+                DefenseRange = 3,
+                ImpactSoundMaterial = EquipmentSoundMaterials.Metal_Sharp,
+                LightIntensityFade = new Vector2(10f, 2f),
+                PointOffset = new Vector3(0, 0, 0),
+                TrailEnabled = false,
+                TrailTime = 0.075f,
+                EffectBehaviour = EditBehaviours.Destroy,
+                ProjectileEffects = new SL_EffectTransform[]
+                {
+                     new SL_EffectTransform
+                     {
+                          TransformName = "HitEffects",
+                          Effects = new SL_Effect[]
+                          {
+                               new SL_PunctualDamage
+                               {
+                                    Delay = 0,
+                                    Damage = new List<SL_Damage> { new SL_Damage { Damage = S_FIREBALL_DAM, Type = DamageType.Types.Fire } },
+                                    Knockback = S_FIREBALL_KNOCK,
+                                    HitInventory = true,
+                                    IgnoreHalfResistances = false
+                               },
+                               new SL_AddStatusEffect { StatusEffect = "Burning", ChanceToContract = 100 },
+                               new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_ElemantalProjectileFire_Shot } }
+                          }
+                     }
+                }
+            };
+            return (fireProjectile);
         }
 
         private static SL_ShootProjectile IceProjectile()
         {
-            SL_ShootProjectile spIceDamage = new SL_ShootProjectile
+            SL_ShootProjectile iceProjectile = new SL_ShootProjectile
             {
                 Delay = 0,
                 SyncType = Effect.SyncTypes.OwnerSync,
@@ -429,7 +508,7 @@ namespace GMP
                 IgnoreShooterCollision = true,
                 TargetingMode = ShootProjectile.TargetMode.OwnerTarget,
                 TargetCountPerProjectile = 1,
-                TargetRange = 25,
+                TargetRange = S_FREEZINGSHARD_RANGE,
                 AutoTargetMaxAngle = 360,
                 AutoTarget = false,
                 AutoTargetRange = 10,
@@ -443,7 +522,7 @@ namespace GMP
                 ImpactSoundMaterial = EquipmentSoundMaterials.Metal_Sharp,
                 LightIntensityFade = new Vector2(10f, 2f),
                 PointOffset = new Vector3(0, 0, 0),
-                TrailEnabled = true,
+                TrailEnabled = false,
                 TrailTime = 0.001f,
                 EffectBehaviour = EditBehaviours.Destroy,
                 ProjectileEffects = new SL_EffectTransform[]
@@ -453,12 +532,12 @@ namespace GMP
                          TransformName = "HitEffects",
                          Effects = new SL_Effect[]
                          {
-                             new SL_AddStatusEffect { StatusEffect = CRIPPLE_OVERRIDE_EFFECT_NAME, ChanceToContract = 100 },
-                             new SL_AddStatusEffect { StatusEffect = CHILL_OVERRIDE_EFFECT_NAME, ChanceToContract = 100},
+                             new SL_AddStatusEffect { StatusEffect = CRIPPLE_OVERRIDE_EFFECT_NAME, ChanceToContract = 100, Delay = HAMPERED_OVERRIDE_EFFECT_DUR },
+                             new SL_AddStatusEffect { StatusEffect = CHILL_OVERRIDE_EFFECT_NAME, ChanceToContract = 100, Delay = HAMPERED_OVERRIDE_EFFECT_DUR },
+                             new SL_AddStatusEffect { StatusEffect = HAMPERED_OVERRIDE_EFFECT_NAME, ChanceToContract = 100, },
                              new SL_PunctualDamage
                              {
                                   Delay = 0,
-                                  //SyncType = Effect.SyncTypes.Everyone,
                                   Damage = new List<SL_Damage> { new SL_Damage { Damage = S_FREEZINGSHARD_DAM, Type = DamageType.Types.Frost } },
                                   Knockback = S_FREEZINGSHARD_KNOCK,
                                   HitInventory = true,
@@ -470,7 +549,71 @@ namespace GMP
 
                 }
             };
-            return (spIceDamage);
+            return (iceProjectile);
+        }
+        private static SL_ShootProjectile LightningProjectile()
+        {
+            SL_ShootProjectile lightningProjectile = new SL_ShootProjectile
+            {
+                Delay = 0,
+                SyncType = Effect.SyncTypes.OwnerSync,
+                CastPosition = Shooter.CastPositionType.Local,
+                LocalPositionAdd = new Vector3(0, 0.5f, 0),
+                NoAim = false,
+                TargetType = Shooter.TargetTypes.Enemies,
+                TransformName = "ShooterTransform",
+                BaseProjectile = SL_ShootProjectile.ProjectilePrefabs.LichGoldLightningBolt,
+                InstantiatedAmount = 1,
+                Lifespan = 2,
+                LateShootTime = 0.1f,
+                Unblockable = true,
+                EffectsOnlyIfHitCharacter = false,
+                EndMode = Projectile.EndLifeMode.Normal,
+                DisableOnHit = false,
+                IgnoreShooterCollision = true,
+                TargetingMode = ShootProjectile.TargetMode.OwnerTarget,
+                TargetCountPerProjectile = 1,
+                TargetRange = S_LIGHTNINGBOLT_RANGE,
+                AutoTargetMaxAngle = 360,
+                AutoTarget = false,
+                AutoTargetRange = 10,
+                ProjectileForce = S_LIGHTNINGBOLT_FORCE,
+                AddDirection = new Vector3(0, 0, 0),
+                AddRotationForce = new Vector3(0, 0, 0),
+                YMagnitudeAffect = 0,
+                YMagnitudeForce = 0,
+                DefenseLength = 3,
+                DefenseRange = 3,
+                ImpactSoundMaterial = EquipmentSoundMaterials.Metal_Sharp,
+                LightIntensityFade = new Vector2(10f, 2f),
+                PointOffset = new Vector3(0, 0, 0),
+                TrailEnabled = true,
+                TrailTime = 2f,
+                EffectBehaviour = EditBehaviours.Destroy,
+                ProjectileEffects = new SL_EffectTransform[]
+                {
+                    new SL_EffectTransform
+                    {
+                         TransformName = "HitEffects",
+                         Effects = new SL_Effect[]
+                         {
+                              new SL_PunctualDamageAoE
+                              {
+                                     Delay = 0,
+                                     Radius = S_LIGHTNINGBOLT_RAD,
+                                     TargetType = Shooter.TargetTypes.Enemies,
+                                     IgnoreShooter = true,
+                                     Damage = new List<SL_Damage> { new SL_Damage { Damage = S_LIGHTNINGBOLT_DAM, Type = DamageType.Types.Electric } },
+                                     Knockback = S_LIGHTNINGBOLT_KNOCK,
+                                     HitInventory = true,
+                                     IgnoreHalfResistances = false
+                              },
+                              new SL_PlaySoundEffect { MinPitch = 1f, MaxPitch = 1f, Follow = false, Sounds = new List<GlobalAudioManager.Sounds> { GlobalAudioManager.Sounds.SFX_SKILL_ElemantalProjectileElectric_Shot } }
+                         }
+                    },
+                }
+            };
+            return (lightningProjectile);
         }
     }
-}
+} 

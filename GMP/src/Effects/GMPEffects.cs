@@ -44,7 +44,7 @@ namespace GMP
 
         public const int FIREFLY_EFFECT_ID = -31870;
         public const string FIREFLY_EFFECT_NAME = "Firefly_Puree";
-        public const float FIREFLY_EFFECT_DURATION = 600f;
+        public const float FIREFLY_EFFECT_DURATION = 600f; 
 
         public static void Init()
         {
@@ -308,7 +308,6 @@ namespace GMP
                 Name = "Reanimated Fireflies",
                 Description = "The essence of fireflies.",
                 Purgeable = true,
-                //RefreshRate = FIREFLY_EFFECT_DURATION,
                 DisplayedInHUD = true,
                 IsMalusEffect = false,
                 Lifespan = FIREFLY_EFFECT_DURATION,

@@ -1,12 +1,42 @@
 ﻿using SideLoader;
 using UnityEngine;
 using System;
-using SLExtensions;
-using SideLoader_ExtendedEffects;
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace GMP
 {
+    public class StatusEffectExt
+    {
+        private bool timerSuspended = false;
+
+        public bool TimerSuspended
+        {
+            get => timerSuspended;
+            set => timerSuspended = value;
+        }
+    }
+
+    public static class StatusEffectExtensions
+    {
+
+        private static ConditionalWeakTable<StatusEffect, StatusEffectExt> SuspendedEffects = new ConditionalWeakTable<StatusEffect, StatusEffectExt>();
+
+        public static void SetTimerSuspended(this StatusEffect statusEffect, bool suspended)
+        {
+            StatusEffectExt ext = SuspendedEffects.GetValue(statusEffect, key => new StatusEffectExt());
+            ext.TimerSuspended = suspended;
+        }
+
+        public static bool IsTimerSuspended(this StatusEffect statusEffect)
+        {
+            if (SuspendedEffects.TryGetValue(statusEffect, out StatusEffectExt ext))
+            {
+                return ext.TimerSuspended;
+            }
+            return false;
+        }
+    }
+
     public class FireFlyEffectTemplate : SL_Effect, ICustomModel
     {
         public Type SLTemplateModel => typeof(FireFlyEffectTemplate);
@@ -23,6 +53,18 @@ namespace GMP
         public Type GameModel => typeof(FireFlyEffect);
 
         private bool isActivated = false;
+
+        private void ResetStatus(Character character)
+        {
+            isActivated = false;
+            foreach (Light light in character.gameObject.GetComponents<Light>())
+            {
+                if (light.name == "firefly")
+                {
+                    Destroy(character.GetComponent<Light>());
+                }
+            }
+        }
 
         public override void ActivateLocally(Character _affectedCharacter, object[] _infos)
         {
@@ -41,14 +83,8 @@ namespace GMP
 
         public override void StopAffectLocally(Character _affectedCharacter)
         {
-            isActivated = false;
-            foreach (Light light in _affectedCharacter.gameObject.GetComponents<Light>())
-            {
-                if (light.name == "firefly")
-                {
-                    Destroy(_affectedCharacter.GetComponent<Light>());
-                }
-            }
+            m_parentStatusEffect.SetTimerSuspended(false);
+            ResetStatus(_affectedCharacter);
         }
     }
 }

@@ -91,7 +91,7 @@ namespace GMP
             {
                 UID = RED_SCROLL_FAMILY,
                 StackBehaviour = StatusEffectFamily.StackBehaviors.IndependantUnique,
-                MaxStackCount = 1,
+                MaxStackCount = -1,
                 LengthType = StatusEffectFamily.LengthTypes.Short
             };
             redScrollFamily.ApplyTemplate();
